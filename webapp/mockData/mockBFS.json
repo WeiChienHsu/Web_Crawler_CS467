@@ -1,0 +1,52 @@
+{
+  "nodes": [
+      {
+          "index": 0,
+          "url": "https://www.reddit.com/r/OSUOnlineCS/",
+          "domainName": "reddit",
+          "title": "reddit: the front page of the internet"
+      },
+      {
+          "index": 1,
+          "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
+          "domainName": "reddit",
+          "title": "reddit.com: Join the worldwide conversation"
+      },
+      {
+          "index": 2,
+          "url": "https://www.reddit.com/help/useragreement",
+          "domainName": "reddit",
+          "title": "User Agreement - September 24, 2018 - Reddit"
+      },
+      {
+          "index": 3,
+          "url": "https://www.reddit.com/help/privacypolicy/",
+          "domainName": "reddit",
+          "title": "Privacy Policy - May 25, 2018 - Reddit"
+      },
+      {
+          "index": 4,
+          "url": "https://www.reddit.com/help/contentpolicy/",
+          "domainName": "reddit",
+          "title": "Content Policy - Reddit"
+      }
+  ],
+  "edges": [
+      {
+          "source": 0,
+          "target": 1
+      },
+      {
+          "source": 1,
+          "target": 2
+      },
+      {
+          "source": 1,
+          "target": 3
+      },
+      {
+          "source": 1,
+          "target": 4
+      }
+  ]
+}
