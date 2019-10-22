@@ -24,27 +24,71 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 })
 
-app.get('/history', (req, res)=>{
+app.get('/history', (req, res)=> {
   res.send(req.cookies.searchingHistory);
 });
 
-app.get("/dfsData", (req, res) => {
+app.delete('/history', (req, res) => {
+  res.cookie("searchingHistory", "[]"); // Reset Cookie
+  res.status(204).end();
+});
+
+app.post("/dfsData", (req, res) => {
+
+  if (req.body.url == null) {
+    return res.status(404).send('Please Enter the URL.');
+  }
+
   let currentCookie = req.cookies.searchingHistory;
-  currentCookie =  addSearchingHistoryInCurrentCookie(req.cookies.searchingHistory, "get DFS data!");
+
+  const depth = req.body.depth;
+  const algorithm = 'dfs';
+  const url = req.body.url;
+  const keyword = req.body.keyword;
+
+  const searchResult = {
+    "algorithm": algorithm,
+    "url": url,
+    "depth": depth,
+    "keyword": keyword
+  }
+
+  currentCookie =  addSearchingHistoryInCurrentCookie(req.cookies.searchingHistory, searchResult);
+
+  // console.log("Search for: " + JSON.stringify(searchResult));
 
   res.cookie("searchingHistory", currentCookie);
 
-	res.send(dfsData);
+	return res.status(201).send(dfsData); // Hard-coded mock data
 })
 
-app.get("/bfsData", (req, res) => {
+app.post("/bfsData", (req, res) => {
+
+  if (req.body.url == null) {
+    return res.status(404).send('Please Enter the URL.');
+  }
 
   let currentCookie = req.cookies.searchingHistory;
-  currentCookie =  addSearchingHistoryInCurrentCookie(req.cookies.searchingHistory, "get BFS data!");
+
+  const depth = req.body.depth;
+  const algorithm = 'bfs';
+  const url = req.body.url;
+  const keyword = req.body.keyword;
+
+  const searchResult = {
+    "algorithm": algorithm,
+    "url": url,
+    "depth": depth,
+    "keyword": keyword
+  }
+
+  currentCookie =  addSearchingHistoryInCurrentCookie(req.cookies.searchingHistory, searchResult);
 
   res.cookie("searchingHistory", currentCookie);
 
-  res.send(bfsData);
+  // console.log("Search for: " + JSON.stringify(searchResult));
+
+	return res.status(201).send(dfsData); // Hard-coded mock data
 })
 
 
