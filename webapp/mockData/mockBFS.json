@@ -1,52 +1,312 @@
 {
-  "nodes": [
-      {
-          "index": 0,
-          "url": "https://www.reddit.com/r/OSUOnlineCS/",
-          "domainName": "reddit",
-          "title": "reddit: the front page of the internet"
-      },
-      {
-          "index": 1,
-          "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
-          "domainName": "reddit",
-          "title": "reddit.com: Join the worldwide conversation"
-      },
-      {
-          "index": 2,
-          "url": "https://www.reddit.com/help/useragreement",
-          "domainName": "reddit",
-          "title": "User Agreement - September 24, 2018 - Reddit"
-      },
-      {
-          "index": 3,
-          "url": "https://www.reddit.com/help/privacypolicy/",
-          "domainName": "reddit",
-          "title": "Privacy Policy - May 25, 2018 - Reddit"
-      },
-      {
-          "index": 4,
-          "url": "https://www.reddit.com/help/contentpolicy/",
-          "domainName": "reddit",
-          "title": "Content Policy - Reddit"
-      }
-  ],
-  "edges": [
-      {
-          "source": 0,
-          "target": 1
-      },
-      {
-          "source": 1,
-          "target": 2
-      },
-      {
-          "source": 1,
-          "target": 3
-      },
-      {
-          "source": 1,
-          "target": 4
-      }
-  ]
+    "nodes": [
+        {
+            "index": 0,
+            "url": "https://www.reddit.com/r/nba",
+            "domainName": "reddit",
+            "title": "reddit: the front page of the internet"
+        },
+        {
+            "index": 1,
+            "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2Fnba",
+            "domainName": "reddit",
+            "title": "reddit.com: Join the worldwide conversation"
+        },
+        {
+            "index": 2,
+            "url": "https://www.reddit.com/help/useragreement",
+            "domainName": "reddit",
+            "title": "User Agreement - September 24, 2018 - Reddit"
+        },
+        {
+            "index": 3,
+            "url": "https://www.reddit.com/help/privacypolicy/",
+            "domainName": "reddit",
+            "title": "Privacy Policy - May 25, 2018 - Reddit"
+        },
+        {
+            "index": 4,
+            "url": "https://www.reddit.com/help/contentpolicy/",
+            "domainName": "reddit",
+            "title": "Content Policy - Reddit"
+        },
+        {
+            "index": 5,
+            "url": "https://www.redditinc.com/",
+            "domainName": "redditinc",
+            "title": "Homepage - Reddit"
+        },
+        {
+            "index": 6,
+            "url": "https://www.redditinc.com/careers",
+            "domainName": "redditinc",
+            "title": "Careers - Reddit"
+        },
+        {
+            "index": 7,
+            "url": "https://www.redditinc.com/press",
+            "domainName": "redditinc",
+            "title": "Press - Reddit"
+        },
+        {
+            "index": 8,
+            "url": "https://www.redditinc.com/advertising",
+            "domainName": "redditinc",
+            "title": "Advertising on Reddit - Reddit"
+        },
+        {
+            "index": 9,
+            "url": "https://www.redditinc.com/partnerships",
+            "domainName": "redditinc",
+            "title": "Partnerships - Reddit"
+        },
+        {
+            "index": 10,
+            "url": "https://www.redditinc.com/brand",
+            "domainName": "redditinc",
+            "title": "Brand - Reddit"
+        },
+        {
+            "index": 11,
+            "url": "https://redditblog.com/",
+            "domainName": "redditblog",
+            "title": "Upvoted – The official Reddit blog"
+        },
+        {
+            "index": 12,
+            "url": "https://www.reddit.com/mobile/download",
+            "domainName": "reddit",
+            "title": "Reddit: The Official App For iPhone and Android. Meow."
+        },
+        {
+            "index": 13,
+            "url": "https://www.reddit.com/",
+            "domainName": "reddit",
+            "title": "reddit: the front page of the internet"
+        },
+        {
+            "index": 14,
+            "url": "https://www.redditgifts.com/",
+            "domainName": "redditgifts",
+            "title": "reddit gift exchanges and more! - redditgifts"
+        },
+        {
+            "index": 15,
+            "url": "https://www.reddit.com/coins",
+            "domainName": "reddit",
+            "title": "Coins"
+        },
+        {
+            "index": 16,
+            "url": "https://www.reddit.com/premium",
+            "domainName": "reddit",
+            "title": "Reddit Premium"
+        },
+        {
+            "index": 17,
+            "url": "https://www.reddit.com/help/privacypolicy",
+            "domainName": "reddit",
+            "title": "Privacy Policy - May 25, 2018 - Reddit"
+        },
+        {
+            "index": 18,
+            "url": "https://www.reddit.com/help/contentpolicy",
+            "domainName": "reddit",
+            "title": "Content Policy - Reddit"
+        },
+        {
+            "index": 19,
+            "url": "https://www.reddit.com/help/healthycommunities/",
+            "domainName": "reddit",
+            "title": "Moderator Guidelines for Healthy Communities - Reddit"
+        },
+        {
+            "index": 20,
+            "url": "https://www.reddit.com",
+            "domainName": "reddit",
+            "title": "reddit: the front page of the internet"
+        },
+        {
+            "index": 21,
+            "url": "https://docs.google.com/a/reddit.com/forms/d/e/1FAIpQLSezNdDNK1-P8mspSbmtC2r86Ee9ZRbC66u929cG2GX0T9UMyw/viewform",
+            "domainName": "google",
+            "title": "Reddit API Terms of Use"
+        },
+        {
+            "index": 22,
+            "url": "https://www.redditinc.com/policies/privacy-policy",
+            "domainName": "redditinc",
+            "title": "Privacy Policy - May 25, 2018 - Reddit"
+        },
+        {
+            "index": 23,
+            "url": "https://www.redditinc.com/policies/content-policy",
+            "domainName": "redditinc",
+            "title": "Content Policy - Reddit"
+        },
+        {
+            "index": 24,
+            "url": "https://reddit.zendesk.com/hc/en-us/requests/new?ticket_form_id=73465",
+            "domainName": "zendesk",
+            "title": "Submit a request – Reddit Help"
+        },
+        {
+            "index": 25,
+            "url": "https://www.redditgifts.com/privacy/",
+            "domainName": "redditgifts",
+            "title": "redditgifts Privacy Policy"
+        },
+        {
+            "index": 26,
+            "url": "https://reddit.com/personalization",
+            "domainName": "reddit",
+            "title": "Too Many Requests"
+        },
+        {
+            "index": 27,
+            "url": "https://www.redditinc.com/partnerships#tab4",
+            "domainName": "redditinc",
+            "title": "Partnerships - Reddit"
+        },
+        {
+            "index": 28,
+            "url": "https://www.tumblr.com/privacy",
+            "domainName": "tumblr",
+            "title": "Tumblr"
+        },
+        {
+            "index": 29,
+            "url": "https://www.facebook.com/about/privacy/",
+            "domainName": "facebook",
+            "title": "Data Policy"
+        },
+        {
+            "index": 30,
+            "url": "https://twitter.com/privacy",
+            "domainName": "twitter",
+            "title": "Privacy Policy"
+        }
+    ],
+    "edges": [
+        {
+            "source": 0,
+            "target": 1
+        },
+        {
+            "source": 1,
+            "target": 2
+        },
+        {
+            "source": 1,
+            "target": 3
+        },
+        {
+            "source": 1,
+            "target": 4
+        },
+        {
+            "source": 2,
+            "target": 5
+        },
+        {
+            "source": 2,
+            "target": 6
+        },
+        {
+            "source": 2,
+            "target": 7
+        },
+        {
+            "source": 2,
+            "target": 8
+        },
+        {
+            "source": 2,
+            "target": 9
+        },
+        {
+            "source": 2,
+            "target": 10
+        },
+        {
+            "source": 2,
+            "target": 11
+        },
+        {
+            "source": 2,
+            "target": 12
+        },
+        {
+            "source": 2,
+            "target": 13
+        },
+        {
+            "source": 2,
+            "target": 14
+        },
+        {
+            "source": 2,
+            "target": 15
+        },
+        {
+            "source": 2,
+            "target": 16
+        },
+        {
+            "source": 2,
+            "target": 17
+        },
+        {
+            "source": 2,
+            "target": 18
+        },
+        {
+            "source": 2,
+            "target": 19
+        },
+        {
+            "source": 2,
+            "target": 20
+        },
+        {
+            "source": 2,
+            "target": 21
+        },
+        {
+            "source": 2,
+            "target": 22
+        },
+        {
+            "source": 2,
+            "target": 23
+        },
+        {
+            "source": 2,
+            "target": 24
+        },
+        {
+            "source": 3,
+            "target": 25
+        },
+        {
+            "source": 3,
+            "target": 26
+        },
+        {
+            "source": 3,
+            "target": 27
+        },
+        {
+            "source": 3,
+            "target": 28
+        },
+        {
+            "source": 3,
+            "target": 29
+        },
+        {
+            "source": 3,
+            "target": 30
+        }
+    ]
 }

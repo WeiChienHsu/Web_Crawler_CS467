@@ -1,0 +1,3 @@
+{
+  "GCLOUD_PROJECT": "[PROJECT-NAME]"
+}
