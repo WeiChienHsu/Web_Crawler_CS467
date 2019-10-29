@@ -1,0 +1,64 @@
+/* @import "~antd/dist/antd.css"; */
+
+.navbarColor {
+  background-color: white;
+  border-bottom: 1px solid rgb(212, 207, 207);
+}
+
+body {
+  font-family: cursive;
+}
+
+.containerColor {
+  background-color: #f7f7f7;
+  height: 100vh;
+}
+
+.logo {
+  font-family: cursive;
+  font-weight: bold;
+}
+
+.large-button {
+  width: 10rem;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  /* border: 1px solid #ced4da; */
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.form-control {
+  border-radius: 0px;
+  height: 3rem;
+}
+
+.white {
+  background-color: white;
+  height: 30vh;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yellow {
+  background-color: yellow;
+  color: red;
+  border: 1px solid red;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  color: red;
+}
+
+.greenish {
+  color: #28a745;
+}
