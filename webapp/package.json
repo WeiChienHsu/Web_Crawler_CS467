@@ -4,13 +4,15 @@
   "description": "Web Craelwer implements DFS and BFS alogrithms",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "develop": "nodemon index.js",
+    "start": "node server.js",
+    "develop": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brenna Vinny Kevin",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/datastore": "^4.0.0",
+    "@google-cloud/storage": "^4.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
