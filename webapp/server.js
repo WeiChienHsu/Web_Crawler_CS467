@@ -85,7 +85,7 @@ function validateRequest(req) {
  * Get Index
  */
 router.get("/", (req, res) => {
-  res.send("Welcome to the Web Crawler REST_API");
+  res.send("Welcome to the Web Crawler REST API");
 });
 
 
