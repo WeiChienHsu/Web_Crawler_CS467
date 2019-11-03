@@ -20,7 +20,7 @@ Allows you to request the crawler to begin server posting the data from the craw
 | Name | Type | Description | Required | Constraint |
 | ------ | ------ | ------ | ------ | ------ |
 | URL | String | The URL to crawl | true | None |
-| Level* | Integer | The depth level for crawling | true | Max of 3 |
+| Level | Integer | The depth level for crawling | true | Max of 3 |
 | Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
 ###### Response:
 - Response Body MIME Type: ‘application/json’
@@ -46,7 +46,7 @@ Allows you to request the crawler to begin server posting the data from the craw
 | Name | Type | Description | Required | Constraint |
 | ------ | ------ | ------ | ------ | ------ |
 | URL | String | The URL to crawl | true | None
-| Level* | Integer | The depth level for crawling | true | None
+| Level | Integer | The depth level for crawling | true | None
 | Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
 
 ###### Response:
