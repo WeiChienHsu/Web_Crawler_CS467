@@ -10,31 +10,31 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 #### Frontend
 
-- [ ] As a user, I can see the instruction to use this website: When arriving to the main page there will be text and/or a diagram to explain how to use the crawler
+- [X] As a user, I can see the instruction to use this website: When arriving to the main page there will be text and/or a diagram to explain how to use the crawler
 
-- [ ] As a user, I can see a form to enter all required information to start crawling: The homepage will display a web form in the UI that requests the type of search to be performed, the depth of the search, and the starting web page
+- [X] As a user, I can see a form to enter all required information to start crawling: The homepage will display a web form in the UI that requests the type of search to be performed, the depth of the search, and the starting web page
 
-- [ ] As a user, I can enter a starting web page into the search bar: The starting web page input will require a valid URL as an entry
+- [X] As a user, I can enter a starting web page into the search bar: The starting web page input will require a valid URL as an entry
 
-- [ ] As a user, I can select the method of traversal between BFS/DFS: The method of traversal between BFS/DFS will be selected via radio button
+- [X] As a user, I can select the method of traversal between BFS/DFS: The method of traversal between BFS/DFS will be selected via radio button
 
-- [ ] As a user, I can enter a numeric limit that stops the crawl from continuing indefinitely: The number of traversals will be a drop down of integers that are available options for that form of traversal
+- [X] As a user, I can enter a numeric limit that stops the crawl from continuing indefinitely: The number of traversals will be a drop down of integers that are available options for that form of traversal
 
-- [ ] As a user, I can press the “Crawl” button to start crawling: The submit button will have the text “crawl”, which when pushed will call the server API (endpoint dependent on search type) to start the search process
+- [X] As a user, I can press the “Crawl” button to start crawling: The submit button will have the text “crawl”, which when pushed will call the server API (endpoint dependent on search type) to start the search process
 
-- [ ] As a user, I can enter a keyword (optional): The UI will have an optional box to enter a stopping keyword.
+- [X] As a user, I can enter a keyword (optional): The UI will have an optional box to enter a stopping keyword.
 
 - [ ] As a user, I can see a graph representing the crawling results: The UI will use the D3 library to display a web-style graph that shows the various web pages that were hit by the crawler.
 
-- [ ] As a user, I can see a spinner while waiting for the crawling result: While performing the algorithm on the backend, the UI will display a spinning indicator that says “Crawling…” until the response is received
+- [X] As a user, I can see a spinner while waiting for the crawling result: While performing the algorithm on the backend, the UI will display a spinning indicator that says “Crawling…” until the response is received
 
-- [ ] As a user, I should be informed if I enter an invalid input
+- [X] As a user, I should be informed if I enter an invalid input
 
-- [ ] As a user, I can see the searching history: The search history will be stored as cookies in the user’s browser
+- [X] As a user, I can see the searching history: The search history will be stored as cookies in the user’s browser
 
-- [ ] As a user, I can clear the search history: There will be a button that will clear the user’s search history
+- [X] As a user, I can clear the search history: There will be a button that will clear the user’s search history
 
-- [ ] As a user, I can see the error messages from Web Server (e.g. Timeout, No Result): If the web server experiences an error, the messaging will be displayed to the user as well as a prompt to please try again
+- [X] As a user, I can see the error messages from Web Server (e.g. Timeout, No Result): If the web server experiences an error, the messaging will be displayed to the user as well as a prompt to please try again
 
 - [ ] As a user, within the graph, I can hover over the node and see the web page title/web page URL: Hovering over a node in the graph will show the web page title and URL for that corresponding node.
 
@@ -42,17 +42,17 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [ ] As a user, within the graph, I can modify the size of the graph: There will be button options to zoom in or out of the graph to look closer at each node and its contents
 
-- [ ] As a Web Frontend, it should be a single web application
+- [X] As a Web Frontend, it should be a single web application
 
-- [ ] As a Web Frontend, it can validate the user input not to be empty: The UI will display an error message if the URL entered was empty or not valid input
+- [X] As a Web Frontend, it can validate the user input not to be empty: The UI will display an error message if the URL entered was empty or not valid input
 
-- [ ] As a Web Frontend, it can validate the user input should be a valid URL: URL validity will be determined using a regular expression check
+- [X] As a Web Frontend, it can validate the user input should be a valid URL: URL validity will be determined using a regular expression check
 
-- [ ] As a Web Frontend, it can validate the user input by the limitation of DFS/BFS
+- [X] As a Web Frontend, it can validate the user input by the limitation of DFS/BFS
 
-- [ ] As a Web Frontend, it can transmit the user input to a web server through the request header/body: The web page will send the given information in the req body to the web server
+- [X] As a Web Frontend, it can transmit the user input to a web server through the request header/body: The web page will send the given information in the req body to the web server
 
-- [ ] As a Web Frontend, it can display the crawling result including the title and URL of each page: After receiving a JSON response from the server, the front end will dissect the object to extract the relational and URL information.
+- [X] As a Web Frontend, it can display the crawling result including the title and URL of each page: After receiving a JSON response from the server, the front end will dissect the object to extract the relational and URL information.
 
 - [ ] As a Web Frontend, it can control the crawling result graph in such a way as to appear only when the user  hovers over them to conserve space
 
@@ -68,7 +68,7 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 #### Web Server
 
-- [ ] As a Web Server, it can receive the request from Web Frontend: The server will listen for any API requests from the front end. 
+- [X] As a Web Server, it can receive the request from Web Frontend: The server will listen for any API requests from the front end. 
 
 - [ ] As a Web Server, it can communication with the end points from Cloud Function and access APIs for both BFS and DFS crawling: The server will determine whether the request is a BFS or DFS search based on the payload from the frontend: The server will make the appropriate function call to the backend cloud function.
 
