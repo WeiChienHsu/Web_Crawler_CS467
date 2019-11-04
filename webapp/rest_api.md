@@ -33,7 +33,7 @@ Allows you to request the crawler to begin server posting the data from the craw
 
 
 #### DFS
-Crawl as BFS
+Crawl as DFS
 ```sh
 POST  /DFS
 ```
