@@ -62,3 +62,7 @@ body {
 .greenish {
   color: #28a745;
 }
+
+#modal-btn{
+  visibility: hidden;
+}

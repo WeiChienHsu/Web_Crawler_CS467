@@ -3,12 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import axios from "axios";
 import cookie from "react-cookies";
-
 import "./App.css";
 import HistoryModal from "./components/HistoryModal";
 import Navbar from "./components/Navbar";
 import Instructions from "./components/Instructions";
 import Output from "./components/Output";
+import Graph from "./components/D3Graph";
+import Tree from "./components/D3Tree";
+import { bfs } from "./components/bfsData";
+import { dfs } from "./components/dfsData";
 
 class App extends Component {
   state = {
@@ -21,6 +24,7 @@ class App extends Component {
     error: "",
     output: false,
     response_error: false,
+    dataloaded: false,
     graph_data: {
       edges: [],
       nodes: []
@@ -101,10 +105,14 @@ class App extends Component {
                   keyword: this.state.keyword
                 });
                 cookie.save("userHistory", history, { path: "/" });
+
+                let display_data = this.state.algo === "BFS" ? bfs :dfs;
+
                 this.setState(
                   {
-                    graph_data: res.data,
+                    graph_data: display_data,
                     loading: false,
+                    dataloaded: true,
                     history: cookie.load("userHistory")
                   },
                   () => console.log(this.state.graph_data)
@@ -127,7 +135,7 @@ class App extends Component {
     return (
       <>
         <Navbar />
-        <div className="containerColor pl-5 pr-5 pt-2">
+        <div className="containerColor pl-5 pr-5 pt-2 pb-1">
           <Instructions />
           <div className="mt-5 row ml-0 mr-0">
             <select
@@ -181,6 +189,11 @@ class App extends Component {
             >
               Search
             </button>
+          </div>
+          <div className="row">
+            {this.state.dataloaded && (
+              <Tree algo={this.state.algo} treeData={this.state.graph_data} />
+            )}
           </div>
           {this.state.output && (
             <Output
