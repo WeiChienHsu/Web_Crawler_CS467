@@ -1,5 +1,5 @@
 # Visualizers Web Server REST API
-See [Visualizer API](https://github.com/WeiChienHsu/Web_Crawler_CS467/edit/apiDoc/webapp/rest_api.md) -- edit link
+See [Visualizer API](https://visualizers-rest-api.appspot.com)
 
 The Web Server handles requests from the Client. A Node.Js server services two endpoints:
 - BFS
