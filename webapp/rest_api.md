@@ -22,6 +22,16 @@ Allows you to request the crawler to begin server posting the data from the craw
 | URL | String | The URL to crawl | true | None |
 | Level | Integer | The depth level for crawling | true | Max of 3 |
 | Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
+
+Request Body Example:
+```sh
+{
+  "url": "https://www.google.com",
+  "level": 8,
+  "keywords": ["mindfulness"]
+}
+```
+
 ###### Response:
 - Response Body MIME Type: ‘application/json’
 
@@ -31,6 +41,41 @@ Allows you to request the crawler to begin server posting the data from the craw
 | Error | 400 | When one or more required fields are missing. |
 | Error | 404 | Not Found |
 
+Response Body Example:
+```sh
+{
+    "url": "https://www.reddit.com/r/OSUOnlineCS/",
+    "domainName": "reddit",
+    "title": "reddit: the front page of the internet",
+    "children": [
+        {
+            "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
+            "domainName": "reddit",
+            "title": "reddit.com: Join the worldwide conversation",
+            "children": [
+                {
+                    "url": "https://www.reddit.com/help/useragreement",
+                    "domainName": "reddit",
+                    "title": "User Agreement - September 24, 2018 - Reddit",
+                    "children": null
+                },
+                {
+                    "url": "https://www.reddit.com/help/privacypolicy/",
+                    "domainName": "reddit",
+                    "title": "Privacy Policy - May 25, 2018 - Reddit",
+                    "children": null
+                },
+                {
+                    "url": "https://www.reddit.com/help/contentpolicy/",
+                    "domainName": "reddit",
+                    "title": "Content Policy - Reddit",
+                    "children": null
+                }
+            ]
+        }
+    ]
+}
+```
 
 #### DFS
 Crawl as DFS
@@ -68,7 +113,8 @@ Request Body Example:
 | Error | 404 | Not Found |
 
 
-Example Response:
+Response Body Example:
+```sh
 {
     "nodes": [
         {
@@ -110,6 +156,7 @@ Example Response:
         {
     ]
 }
+```
 
 License
 ----
