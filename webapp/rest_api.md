@@ -33,7 +33,7 @@ Allows you to request the crawler to begin server posting the data from the craw
 
 
 #### DFS
-Crawl as BFS
+Crawl as DFS
 ```sh
 POST  /DFS
 ```
@@ -49,6 +49,15 @@ Allows you to request the crawler to begin server posting the data from the craw
 | Level | Integer | The depth level for crawling | true | None
 | Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
 
+Request Body Example:
+```sh
+{
+  "url": "https://www.amazon.com",
+  "level": 8,
+  "keywords": null
+}
+```
+
 ###### Response:
 - Response Body MIME Type: ‘application/json’
 
@@ -57,6 +66,50 @@ Allows you to request the crawler to begin server posting the data from the craw
 | Success | 201 Created |
 | Error | 400 | When one or more required fields are missing. |
 | Error | 404 | Not Found |
+
+
+Example Response:
+{
+    "nodes": [
+        {
+            "index": 0,
+            "url": "https://en.wikipedia.org/wiki/Main_Page",
+            "domainName": "wikipedia",
+            "title": "Wikipedia, the free encyclopedia"
+        },
+        {
+            "index": 1,
+            "url": "https://hu.wikipedia.org/wiki/",
+            "domainName": "wikipedia",
+            "title": "Wikipédia, a szabad enciklopédia"
+        },
+        {
+            "index": 2,
+            "url": "https://hu.wikiquote.org/wiki/",
+            "domainName": "wikiquote",
+            "title": "Wikidézet"
+        }
+    ],
+    "edges": [
+        {
+            "source": 0,
+            "target": 1
+        },
+        {
+            "source": 1,
+            "target": 2
+        },
+        {
+            "source": 2,
+            "target": 3
+        },
+        {
+            "source": 3,
+            "target": 4
+        },
+        {
+    ]
+}
 
 License
 ----
