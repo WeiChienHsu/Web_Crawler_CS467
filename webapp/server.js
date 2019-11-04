@@ -85,7 +85,7 @@ function validateRequest(req) {
  * Get Index
  */
 router.get("/", (req, res) => {
-  res.send("Welcome to the Web Crawler API");
+  res.send("Welcome to the Web Crawler REST API");
 });
 
 
@@ -97,11 +97,11 @@ router.post("/dfsData", (req, res) => {
 
     let response = validateRequest(req);
     if( response != null ) {
-        res.status(response.status).json( {Error: response.error}).end();
+        res.status(response.status).json( { Error: response.error }).end();
     } else {
         response = getCrawlerData(CrawlType.DFS, req);
         // get data from crawler
-        //return res.status(201).send(dfsData); // Hard-coded mock data
+
         res.status(response.status).send(response.data);
     }
 });
@@ -117,7 +117,6 @@ router.post("/bfsData", (req, res) => {
     }
 
     // get data from crawler
-	//return res.status(201).send(bfsData); // Hard-coded mock data
     response = getCrawlerData(CrawlType.BFS, req);
     res.status(response.status).json(response.data);
 });
