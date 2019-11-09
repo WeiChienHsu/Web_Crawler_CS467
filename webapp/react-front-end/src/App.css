@@ -7,11 +7,11 @@
 
 body {
   font-family: cursive;
+  overflow-x: hidden;
 }
 
 .containerColor {
   background-color: #f7f7f7;
-  height: 100vh;
 }
 
 .logo {
@@ -63,6 +63,15 @@ body {
   color: #28a745;
 }
 
-#modal-btn{
+#modal-btn {
   visibility: hidden;
+}
+.white {
+  height: auto !important;
+}
+#treeWrapper {
+  margin-top: -1rem;
+}
+.url {
+  font-size: small;
 }
