@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import axios from "axios";
@@ -8,10 +9,7 @@ import HistoryModal from "./components/HistoryModal";
 import Navbar from "./components/Navbar";
 import Instructions from "./components/Instructions";
 import Output from "./components/Output";
-import Graph from "./components/D3Graph";
 import Tree from "./components/D3Tree";
-import { bfs } from "./components/bfsData";
-import { dfs } from "./components/dfsData";
 
 class App extends Component {
   state = {
@@ -25,10 +23,8 @@ class App extends Component {
     output: false,
     response_error: false,
     dataloaded: false,
-    graph_data: {
-      edges: [],
-      nodes: []
-    },
+    disabled: false,
+    graph_data: {},
     history: []
   };
 
@@ -43,7 +39,7 @@ class App extends Component {
 
   updateDepthOptions = () => {
     let options = [];
-    let highend = this.state.algo === "BFS" ? 5 : 21;
+    let highend = this.state.algo === "BFS" ? 4 : 21;
     for (let i = 1; i < highend; i++) {
       options.push(i);
     }
@@ -63,7 +59,9 @@ class App extends Component {
         loading: false,
         error: "",
         output: false,
-        response_error: false
+        response_error: false,
+        disabled: false,
+        dataloaded: false
       },
       () => this.updateDepthOptions()
     );
@@ -106,14 +104,13 @@ class App extends Component {
                 });
                 cookie.save("userHistory", history, { path: "/" });
 
-                let display_data = this.state.algo === "BFS" ? bfs :dfs;
-
                 this.setState(
                   {
-                    graph_data: display_data,
+                    graph_data: res.data,
                     loading: false,
                     dataloaded: true,
-                    history: cookie.load("userHistory")
+                    history: cookie.load("userHistory"),
+                    disabled: true
                   },
                   () => console.log(this.state.graph_data)
                 );
@@ -135,11 +132,12 @@ class App extends Component {
     return (
       <>
         <Navbar />
-        <div className="containerColor pl-5 pr-5 pt-2 pb-1">
+        <div className="containerColor pl-5 pr-5 pt-2 pb-5">
           <Instructions />
           <div className="mt-5 row ml-0 mr-0">
             <select
               className="form-control col-md-1"
+              disabled={this.state.disabled}
               value={this.state.algo}
               onChange={e =>
                 this.setState({ algo: e.target.value }, () =>
@@ -190,16 +188,17 @@ class App extends Component {
               Search
             </button>
           </div>
-          <div className="row">
-            {this.state.dataloaded && (
-              <Tree algo={this.state.algo} treeData={this.state.graph_data} />
-            )}
-          </div>
+
           {this.state.output && (
             <Output
               loading={this.state.loading}
               response_error={this.state.response_error}
             />
+          )}
+        </div>
+        <div className="row">
+          {this.state.dataloaded && (
+            <Tree algo={this.state.algo} treeData={this.state.graph_data} />
           )}
         </div>
         <HistoryModal

@@ -22,7 +22,7 @@ class Output extends Component {
             </p>
           </div>
         ) : (
-          <div>Check Console</div>
+          <div></div>
         )}
       </div>
     );
