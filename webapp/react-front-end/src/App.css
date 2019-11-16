@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: cursive;
+  font-family: Helvetica;
   overflow-x: hidden;
 }
 
@@ -15,7 +15,7 @@ body {
 }
 
 .logo {
-  font-family: cursive;
+  font-family: Helvetica;
   font-weight: bold;
 }
 

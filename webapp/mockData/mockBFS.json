@@ -5,14 +5,14 @@
     "children": 
     [
         {
-            "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
-            "domainName": "reddit",
+            "url": "https://www.google.com/register/",
+            "domainName": "google",
             "title": "reddit.com: Join the worldwide conversation",
             "children": 
             [
               {
-                "url": "https://www.reddit.com/help/useragreement",
-                "domainName": "reddit",
+                "url": "https://www.google.com/help/useragreement",
+                "domainName": "google",
                 "title": "User Agreement - September 24, 2018 - Reddit",
                 "children" : null
               },
@@ -22,14 +22,36 @@
                 "title": "Privacy Policy - May 25, 2018 - Reddit",
                 "children" : null
   
-              },
-              {
-                "url": "https://www.reddit.com/help/contentpolicy/",
-                "domainName": "reddit",
-                "title": "Content Policy - Reddit",
-                "children" : null
               }
             ]
-        }
+        },
+        {
+          "url": "https://www.osu.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
+          "domainName": "reddit",
+          "title": "reddit.com: Join the worldwide conversation",
+          "children": 
+          [
+            {
+              "url": "https://www.osu.com/help/useragreement",
+              "domainName": "osu",
+              "title": "User Agreement",
+              "children" : null
+            },
+            {
+              "url": "https://www.osu.com/help/privacypolicy/",
+              "domainName": "osu",
+              "title": "Privacy Policy",
+              "children" : null
+
+            },
+            {
+              "url": "https://www.osu.com/help/IAMKEYWORD/",
+              "domainName": "osu",
+              "title": "Content Policy",
+              "children" : null,
+              "keywordFound": true
+            }
+          ]
+      }
     ]
   }

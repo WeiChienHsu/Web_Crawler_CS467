@@ -102,8 +102,9 @@ function validateRequest(req) {
         return { status: 400, error: "Url invalid."};
     }
 
-    if (req.body.level == null) {
-        return { status: 400, error: "A level is required to begin crawling. Please enter a level."};
+    if (req.body.depth == null) {
+        return { status: 400, error: "A depth is required to begin crawling. Please enter a depth."};
+
     }
 
     if(req.body.keyword != null ) {
