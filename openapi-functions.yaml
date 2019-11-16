@@ -1,0 +1,47 @@
+swagger: '2.0'
+info:
+  title: Web Crawler
+  description: A function that scrapes the webpage of the given URL, to x depth, and returns the map of the connections.
+  version: 1.0.0
+host: web-crawler-x4zfxu65sq-uc.a.run.app
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /bfs:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      operationId: bfs
+      x-google-backend:
+        address: https://us-central1-webcrawler-256621.cloudfunctions.net/WebCrawler
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: object
+        '400':
+          description: An error occurred
+          schema:
+            type: string
+  /dfs:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      operationId: dfs
+      x-google-backend:
+        address: https://us-central1-webcrawler-256621.cloudfunctions.net/WebCrawler
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: object
+        '400':
+          description: An error occurred
+          schema:
+            type: string
