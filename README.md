@@ -70,17 +70,17 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [X] As a Web Server, it can receive the request from Web Frontend: The server will listen for any API requests from the front end. 
 
-- [ ] As a Web Server, it can communication with the end points from Cloud Function and access APIs for both BFS and DFS crawling: The server will determine whether the request is a BFS or DFS search based on the payload from the frontend: The server will make the appropriate function call to the backend cloud function.
+- [X] As a Web Server, it can establish communication with the endpoints from Cloud Function and access APIs for both BFS and DFS crawling: The server will determine whether the request is a BFS or DFS search based on the payload from the frontend: The server will make the appropriate function call to the backend cloud function.
 
-- [ ] As a Web Server, it can parse the request and attach the keyword and level of search into DFS/BFS API from Google Cloud Platform (Cloud Function Service): The server can parse the level and the keyword (if any) from the request to send to the cloud function for crawling
+- [X] As a Web Server, it can parse the request and attach the keyword and level of search into DFS/BFS API from Google Cloud Platform (Cloud Function Service): The server can parse the level and the keyword (if any) from the request to send to the cloud function for crawling
 
-- [ ] As a Web Server, it can receive the response from Cloud Function: The server will wait for a response from the cloud function after its API call 
+- [X] As a Web Server, it can receive the response from Cloud Function: The server will wait for a response from the cloud function after its API call 
 
-- [ ] As a Web Server, it can return the content from Cloud Function to the Web Frontend: The server will relay the information in JSON back to the frontend as the response to the original API call.
+- [X] As a Web Server, it can return the content from Cloud Function to the Web Frontend: The server will relay the information in JSON back to the frontend as the response to the original API call.
 
 - [ ] As a Web Server, it should response Error Message with correct Status Code to the Frontend: The server will identify any empty response object and return an error to the front end instead of the normal response. The server will have a fail safe, where if it take the function too long to respond, it will return an error message to the front end (in case there is an issue with the function that can not be assessed).
 
-- [ ] As a Web Server, it should be hosted on the Google Cloud Platform: The server will be hosted on Google Cloud Platform which in turn will host the front end of our webpage. It should be accessed by the end point of Google App Engine. (e.g. https://XXXX.appspot.com/)
+- [X] As a Web Server, it should be hosted on the Google Cloud Platform: The server will be hosted on Google Cloud Platform which in turn will host the front end of our webpage. It should be accessed by the end point of Google App Engine. (e.g. https://XXXX.appspot.com/)
 
 ---
 
