@@ -1,0 +1,49 @@
+swagger: '2.0'
+info:
+  title: Web Crawler Cloud Endpoints + GCF
+  description: Cloud function that scrapes the webpage of the given URL, to x depth, and returns the map of the connections
+  version: 1.0.0
+host: web-crawler-x4zfxu65sq-uc.a.run.app
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /bfs:
+    post:
+      summary: request sends body with url and keywords for search
+      operationId: bfs
+      x-google-backend:
+        address: https://us-central1-webcrawler-256621.cloudfunctions.net/bfs
+      responses:
+        '201':
+          description: Created, successful response
+          schema:
+            type: string
+        '404':
+          description: Not found
+          schema:
+            type: string
+        '400':
+          description: Bad request
+          schema:
+            type: string
+  /dfs:
+    post:
+      summary: request sends body with url and keywords for search
+      operationId: dfs
+      x-google-backend:
+        address: https://us-central1-webcrawler-256621.cloudfunctions.net/dfs
+      responses:
+        '201':
+          description: Created, successful response
+          schema:
+            type: string
+        '404':
+          description: Not found
+          schema:
+            type: string
+        '400':
+          description: Bad request
+          schema:
+            type: string

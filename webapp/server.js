@@ -1,7 +1,6 @@
 const express       = require('express');
 const app           = express();
 const bodyParser    = require('body-parser');
-const fetch = require('node-fetch');
 const request = require('request');
 
 const cors = require('cors'); // Fix the frontend no-CORS issues
@@ -27,9 +26,25 @@ const crawlerURL = "https://us-central1-webcrawler-256621.cloudfunctions.net";
  * @enum {{name: string}}
  */
 const CrawlType = Object.freeze({
-    BFS:   { name: "bfs", endpoint: "/WebCrawler-2"},
-    DFS:  { name: "dfs", endpoint: "/WebCrawler"}
+    BFS:   { name: "bfs", endpoint: "/bfs"},
+    DFS:  { name: "dfs", endpoint: "/dfs"}
 });
+
+/**
+ * @type validation
+ */
+function isValidUrl(str)
+{
+    regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+
+
+    if (regexp.test(str))
+    {
+        return true;
+    }
+    return false;
+
+}
 
 
 /**
@@ -83,8 +98,18 @@ function validateRequest(req) {
         return { status: 400, error: "Please enter a URL so the crawler crawler can show you how cool it is."};
     }
 
+    if (!isValidUrl(req.body.url)) {
+        return { status: 400, error: "Url invalid."};
+    }
+
     if (req.body.level == null) {
         return { status: 400, error: "A level is required to begin crawling. Please enter a level."};
+    }
+
+    if(req.body.keyword != null ) {
+        //check only one word and
+        if(req.body.keyword.length <= 2)
+        return { status: 400, error: "Keyword not valid. Keyword is optional, but if sent then it must be at least 3 characters long." }
     }
 }
 
@@ -107,25 +132,15 @@ router.post("/dfsData", (req, res) => {
     if( response != null ) {
         res.status(response.status).json( { Error: response.error }).end();
     } else {
-        // get data from crawler
-        //res.status(201).send(dfsData); // Hard-coded mock data
 
-        /*
-        getCrawlerData(CrawlType.DFS, req).then( (response) => {
-            res.status(response.status).json(response.data);
-        }); */
-        response = { status: 201, data: null };
         let url = crawlerURL + CrawlType.DFS.endpoint;
 
-        request(url, { json: true }, (error, result, body) => {
-            response.status = result.statusCode;
+        request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                response.Error = error;
-                res.status(response.status).send(response.Error);
+                res.status(result.statusCode).send(error);
             } else {
-                response.data = body;
-                res.status(response.status).send(response.data);
+                res.status(result.statusCode).send(body);
             }
         });
     }
