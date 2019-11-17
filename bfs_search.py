@@ -1,6 +1,5 @@
 import sys
 import requests
-import uuid
 import validators
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
@@ -19,7 +18,6 @@ def newNode(url):
     parts = urlparse(url)
     soup = getSoup(url)
     node = {
-    	'id': uuid.uuid4().hex,
         'url': url,
         'domain': parts.netloc,
         'children': [],
@@ -73,23 +71,20 @@ def bfs(start, depth):
                 #break loop as too many links will kill algorithm
                 if count == 20:
                     break
-                if get_status_code(link) == 404:
-                    continue
                 newUrl = link.get('href')
                 newUrl = removeQuery(newUrl)
-                if validators.url(newUrl) and (newUrl not in foundUrls):
+                if validators.url(newUrl) and (newUrl not in foundUrls) and (get_status_code(newUrl) != 404):
                     print(newUrl)
                     count += 1
                     foundUrls.append(newUrl)
                     childNode = newNode(newUrl)
                     children.append(childNode)
-                    nodeList.append(childNode)
             parentNode['children'] = children[:]
         queue = children[:]
         children = []
         depth -= 1
         print('***************** depth = ', depth)
-    return startNode['id'] 
+    return
 
 
 def main():
