@@ -14,14 +14,6 @@ proxies = {
 }
 
 nodeList = []
-edgeList = []
-
-def newEdge(source, target):
-    edge = {
-    	'source': source,
-        'target': target
-    }
-    return edge
 
 def newNode(url):
     parts = urlparse(url)
@@ -30,8 +22,8 @@ def newNode(url):
     	'id': uuid.uuid4().hex,
         'url': url,
         'domain': parts.netloc,
+        'children': [],
         'title': soup.title.string if soup.title else 'No title'
-        #'status': get_status_code(url)
     }
     return node
 
@@ -40,16 +32,16 @@ def getSoup(link):
     soup = BeautifulSoup(request_object.content, "html.parser")
     return soup
 
-# def get_status_code(link):
-#     """
-#     Return the error code for any url
-#     param: link
-#     """
-#     try:
-#         error_code = requests.get(link).status_code
-#     except requests.exceptions.ConnectionError:
-#         error_code = 
-#     return error_code
+def get_status_code(link):
+    """
+    Return the error code for any url
+    param: link
+    """
+    try:
+        error_code = requests.get(link).status_code
+    except requests.exceptions.ConnectionError:
+        error_code = 13
+    return error_code
 
 def removeQuery(url):
     return url[:url.find('?')]
@@ -81,6 +73,8 @@ def bfs(start, depth):
                 #break loop as too many links will kill algorithm
                 if count == 20:
                     break
+                if get_status_code(link) == 404:
+                    continue
                 newUrl = link.get('href')
                 newUrl = removeQuery(newUrl)
                 if validators.url(newUrl) and (newUrl not in foundUrls):
@@ -90,7 +84,7 @@ def bfs(start, depth):
                     childNode = newNode(newUrl)
                     children.append(childNode)
                     nodeList.append(childNode)
-                    edgeList.append(newEdge(parentNode['id'], childNode['id']))
+            parentNode['children'] = children[:]
         queue = children[:]
         children = []
         depth -= 1
@@ -100,10 +94,8 @@ def bfs(start, depth):
 
 def main():
   print(str(sys.argv))
-  startId = bfs(sys.argv[1], int(sys.argv[2]))
-  edgeList.append(newEdge(0, startId))
-  response = {'nodes': nodeList, 'edges': edgeList}
-  print(str(response))
+  bfs(sys.argv[1], int(sys.argv[2]))
+  print(str(nodeList))
 
   
 if __name__== "__main__":
