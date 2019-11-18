@@ -134,6 +134,8 @@ router.post("/dfsData", (req, res) => {
         res.status(response.status).json( { Error: response.error }).end();
     } else {
 
+        res.status(201).send(dfsData); // Hard-coded mock data
+        /*
         let url = crawlerURL + CrawlType.DFS.endpoint;
 
         request.post(url, { json: req.body }, (error, result, body) => {
@@ -143,7 +145,7 @@ router.post("/dfsData", (req, res) => {
             } else {
                 res.status(result.statusCode).send(body);
             }
-        });
+        }); */
     }
 });
 
@@ -157,9 +159,6 @@ router.post("/bfsData", (req, res) => {
         res.status(response.status).json({ Error: response.error }).end();
     } else {
 
-        res.status(201).send(bfsData); // Hard-coded mock data
-
-        /*
         let url = crawlerURL + CrawlType.BFS.endpoint;
 
         request.post(url, { json: req.body }, (error, result, body) => {
@@ -169,7 +168,7 @@ router.post("/bfsData", (req, res) => {
             } else {
                 res.status(result.statusCode).send(body);
             }
-        }); */
+        });
     }
 });
 
