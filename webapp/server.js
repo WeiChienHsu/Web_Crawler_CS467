@@ -155,15 +155,22 @@ router.post("/bfsData", (req, res) => {
     let response = validateRequest(req);
     if( response != null ) {
         res.status(response.status).json({ Error: response.error }).end();
+    } else {
+
+        res.status(201).send(bfsData); // Hard-coded mock data
+
+        /*
+        let url = crawlerURL + CrawlType.BFS.endpoint;
+
+        request.post(url, { json: req.body }, (error, result, body) => {
+
+            if (error) {
+                res.status(result.statusCode).send(error);
+            } else {
+                res.status(result.statusCode).send(body);
+            }
+        }); */
     }
-
-    // get data from crawler
-    res.status(201).send(bfsData); // Hard-coded mock data
-
-    /*
-    getCrawlerData(CrawlType.BFS, req).then( (response) => {
-        res.status(response.status).json(response.data);
-    }); */
 });
 
 
