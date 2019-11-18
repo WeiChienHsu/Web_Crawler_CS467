@@ -46,17 +46,18 @@ def removeQuery(url):
 
 # visits all urls on the given page and continues to depth (maximum of 3)
 # returns the starting node's ID
-def bfs(start, depth):
+def bfs(start, depth, keyword):
     children = []
     foundUrls = [start]
     startNode = newNode(start)
     nodeList.append(startNode)
     queue = [startNode]
+    keywordFound = False
 
     #if we have reached depth then we don't need to search any more links
     while depth > 0:
         #check all of the nodes at this depth before moving deeper
-        while queue:
+        while queue and not keywordFound:
             #take the next node at this height
             parentNode = queue.pop(0)
             thisUrl = parentNode['url']
@@ -68,18 +69,22 @@ def bfs(start, depth):
             # put top 20 new urls into a queue for traversing if not already found
             count = 0
             for link in pageLinks:
-                #break loop as too many links will kill algorithm
-                if count == 20:
-                    break
                 newUrl = link.get('href')
                 newUrl = removeQuery(newUrl)
                 if validators.url(newUrl) and (newUrl not in foundUrls) and (get_status_code(newUrl) != 404):
                     print(newUrl)
                     count += 1
                     foundUrls.append(newUrl)
+                    #create a new node for this newUrl
                     childNode = newNode(newUrl)
+                    if keyword and (keyword in newUrl):
+                        keywordFound = True
+                        childNode['hasKeyword'] = True
                     children.append(childNode)
-            parentNode['children'] = children[:]
+                    parentNode['children'].append(childNode)
+                #break loop as too many links will kill algorithm
+                if count == 20 or keywordFound:
+                    break
         queue = children[:]
         children = []
         depth -= 1
@@ -89,8 +94,12 @@ def bfs(start, depth):
 
 def main():
   print(str(sys.argv))
-  bfs(sys.argv[1], int(sys.argv[2]))
+  temp = None
+  if len(sys.argv) == 4:
+      temp = sys.argv[3]
+  bfs(sys.argv[1], int(sys.argv[2]), temp)
   print(str(nodeList))
+  #return nodelist in JSON format
 
   
 if __name__== "__main__":
