@@ -44,11 +44,17 @@ def get_status_code(link):
 def removeQuery(url):
     return url[:url.find('?')]
 
+def removeScheme(url):
+    parsed = urlparse(url)
+    scheme = "%s://" % parsed.scheme
+    return parsed.geturl().replace(scheme, '', 1)
+
 # visits all urls on the given page and continues to depth (maximum of 3)
 # returns the starting node's ID
 def bfs(start, depth, keyword):
+    start = removeQuery(start)
     children = []
-    foundUrls = [start]
+    foundUrls = [removeScheme(start)]
     startNode = newNode(start)
     nodeList.append(startNode)
     queue = [startNode]
@@ -71,10 +77,11 @@ def bfs(start, depth, keyword):
             for link in pageLinks:
                 newUrl = link.get('href')
                 newUrl = removeQuery(newUrl)
-                if validators.url(newUrl) and (newUrl not in foundUrls) and (get_status_code(newUrl) != 404):
+                noSchemeUrl = removeScheme(newUrl)
+                if validators.url(newUrl) and (noSchemeUrl not in foundUrls) and (get_status_code(newUrl) != 404):
                     print(newUrl)
                     count += 1
-                    foundUrls.append(newUrl)
+                    foundUrls.append(noSchemeUrl)
                     #create a new node for this newUrl
                     childNode = newNode(newUrl)
                     if keyword and (keyword in newUrl):
