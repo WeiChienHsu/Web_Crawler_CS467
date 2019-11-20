@@ -195,6 +195,7 @@ class D3Tree extends React.Component {
 
       // Add Color in the Map
       colorMap.set(domainName, color);
+      usedColor.push(domainName)
       return color;
     }
   }

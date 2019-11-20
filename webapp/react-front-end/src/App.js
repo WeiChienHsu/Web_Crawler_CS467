@@ -87,7 +87,7 @@ class App extends Component {
             keyword: this.state.keyword
           };
           axios
-            .post(`https://visualiz.appspot.com/${postfix}`, body)
+            .post(`https://visualizers-rest-api.appspot.com/${postfix}`, body)
             .then(res => {
               if (res.status !== 201) {
                 this.setState({
