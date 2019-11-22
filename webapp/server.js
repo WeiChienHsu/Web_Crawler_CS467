@@ -48,42 +48,6 @@ function isValidUrl(str)
 
 
 /**
- * Function to call crawler for data to pass back to visualizer
- * @param type
- * @param url
- * @returns {{status: number, data: *}}
- */
-function getCrawlerData(crawlerType, url) {
-
-    let response = { status: 201, data: null };
-
-    // Mock for now until we get data from crawler
-    /*
-    if(crawlerType === CrawlType.BFS) {
-        response.data = bfsData;
-    } else {
-        response.data = dfsData;
-    } */
-
-    /* connect to crawler, try a few times with limit */
-
-    /* send request for data */
-
-    return  request(url, { json: true }, (err, res, body) => {
-        response.status = response.statusCode;
-
-        if (err) {
-            response.Error = err;
-        } else {
-            response.data = body;
-        }
-        return response;
-    });
-
-}
-
-
-/**
  * Function to validate request and required attributes by client,
  * @param req - api request
  * @returns {*}
@@ -107,9 +71,8 @@ function validateRequest(req) {
 
     }
 
-    if(req.body.keyword != null ) {
+    if( req.body.keyword  && req.body.keyword.length <= 2 ) {
         //check only one word and
-        if(req.body.keyword.length <= 2)
         return { status: 400, error: "Keyword not valid. Keyword is optional, but if sent then it must be at least 3 characters long." }
     }
 }
