@@ -17,9 +17,9 @@ class Output extends Component {
           </div>
         ) : this.props.response_error ? (
           <div className="yellow container">
-            <p className="text-center m-2">
-              There are some issues from the server. Please try again later
-            </p>
+              <p className="text-center m-2">
+                Error Message: <strong>{this.props.server_error}</strong>
+              </p>
           </div>
         ) : (
           <div></div>

@@ -55,6 +55,15 @@ body {
   justify-content: center;
 }
 
+.green {
+  background-color: darkgreen;
+  color: white;
+  border: 1px solid whitesmoke;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .error {
   color: red;
 }

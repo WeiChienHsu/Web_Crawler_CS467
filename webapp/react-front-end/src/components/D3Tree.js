@@ -137,6 +137,14 @@ class D3Tree extends React.Component {
     document.getElementById("modal-btn").click();
   };
 
+  handleOnHover = (node, event) => {
+    this.setState({
+      title: node.title,
+      name: node.name,
+      url: node.url
+    });
+  }
+
   orientationSetting = () => {
     if (this.props.algo == "BFS") {
       this.setState({
@@ -151,6 +159,21 @@ class D3Tree extends React.Component {
     }
   };
 
+  transferOrientation = () => {
+    if (this.state.orientation == "horizontal") {
+      this.setState({
+        orientation: "vertical",
+        translate: { x: 363, y: 73.2 }
+      })
+    }
+    else {
+      this.setState({
+        orientation: "horizontal",
+        translate: { x: 239.05, y: 297.2 }
+      });
+    }
+  }
+
   zoomHandle = z => {
     let zooming = this.state.zoom;
     if (z == "-" && zooming > 0) {
@@ -163,7 +186,6 @@ class D3Tree extends React.Component {
     });
   };
 
-  
   getRandomColor = () => {
     var letters = "0123456789ABCDEF";
     var color = "#";
@@ -203,10 +225,16 @@ class D3Tree extends React.Component {
   render() {
     return (
       <>
+        <div className="green container">
+          <p className="text-center m-2">
+            Current Title: <strong>{this.state.title}</strong><br></br>
+            Cuurent URL: <strong>{this.state.url}</strong>
+          </p>
+        </div>
         <div
           className="row mb-1 "
           id="treeWrapper"
-          style={{ width: "80em", height: "40em" }}
+          style={{ width: "80em", height: "22em" }}
         >
           <Tree
             data={this.state.treeData}
@@ -216,6 +244,9 @@ class D3Tree extends React.Component {
             zoom={this.state.zoom}
             onClick={(node, e) => {
               this.handleOnClick(node, e);
+            }}
+            onMouseOver={(node, e) => {
+              this.handleOnHover(node, e);
             }}
             translate={this.state.translate}
           />
@@ -229,6 +260,14 @@ class D3Tree extends React.Component {
 
         <div className="row mb-2 d-flex justify-content-end w-100 ">
           <div className="mr-5">
+            <button
+              className="mr-1 btn btn-danger"
+              onClick={() => {
+                this.transferOrientation();
+              }}
+            >
+              Transfer orientation
+            </button>
             <button
               className="mr-1 btn btn-secondary"
               onClick={() => {
