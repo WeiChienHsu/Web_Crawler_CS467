@@ -104,7 +104,7 @@ router.post("/dfsData", (req, res) => {
         request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                res.status(result.statusCode).send(error);
+                res.status(result.statusCode).send( { Error: error });
             } else {
                 res.status(result.statusCode).send(body);
             }
@@ -127,7 +127,7 @@ router.post("/bfsData", (req, res) => {
         request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                res.status(result.statusCode).send(error);
+                res.status(result.statusCode).send( { Error: error });
             } else {
                 res.status(result.statusCode).send(body);
             }
