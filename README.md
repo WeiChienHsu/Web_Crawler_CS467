@@ -24,7 +24,7 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [X] As a user, I can enter a keyword (optional): The UI will have an optional box to enter a stopping keyword.
 
-- [ ] As a user, I can see a graph representing the crawling results: The UI will use the D3 library to display a web-style graph that shows the various web pages that were hit by the crawler.
+- [X] As a user, I can see a graph representing the crawling results: The UI will use the D3 library to display a web-style graph that shows the various web pages that were hit by the crawler.
 
 - [X] As a user, I can see a spinner while waiting for the crawling result: While performing the algorithm on the backend, the UI will display a spinning indicator that says “Crawling…” until the response is received
 
@@ -36,11 +36,11 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [X] As a user, I can see the error messages from Web Server (e.g. Timeout, No Result): If the web server experiences an error, the messaging will be displayed to the user as well as a prompt to please try again
 
-- [ ] As a user, within the graph, I can hover over the node and see the web page title/web page URL: Hovering over a node in the graph will show the web page title and URL for that corresponding node.
+- [X] As a user, within the graph, I can hover over the node and see the web page title/web page URL: Hovering over a node in the graph will show the web page title and URL for that corresponding node.
 
-- [ ] As a user, within the graph, I can access the web page opened in a new tab
+- [X] As a user, within the graph, I can access the web page opened in a new tab
 
-- [ ] As a user, within the graph, I can modify the size of the graph: There will be button options to zoom in or out of the graph to look closer at each node and its contents
+- [X] As a user, within the graph, I can modify the size of the graph: There will be button options to zoom in or out of the graph to look closer at each node and its contents
 
 - [X] As a Web Frontend, it should be a single web application
 
@@ -54,15 +54,15 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [X] As a Web Frontend, it can display the crawling result including the title and URL of each page: After receiving a JSON response from the server, the front end will dissect the object to extract the relational and URL information.
 
-- [ ] As a Web Frontend, it can control the crawling result graph in such a way as to appear only when the user  hovers over them to conserve space
+- [X] As a Web Frontend, it can control the crawling result graph in such a way as to appear only when the user  hovers over them to conserve space
 
-- [ ] As a Web Frontend, the graph should be able to zoom in/out
+- [X] As a Web Frontend, the graph should be able to zoom in/out
 
-- [ ] As a Web Frontend, it can handle the graph node and lines not being overlapped and using an arrow to connect each node
+- [X] As a Web Frontend, it can handle the graph node and lines not being overlapped and using an arrow to connect each node
 
-- [ ] As a Web Frontend, it can differentiate the node color by the domain name: Nodes will be colored by domain
+- [X] As a Web Frontend, it can differentiate the node color by the domain name: Nodes will be colored by domain
 
-- [ ] As a Web Frontend, it can render the whole graph and animation using D3 libraries
+- [X] As a Web Frontend, it can render the whole graph and animation using D3 libraries
 
 ---
 
