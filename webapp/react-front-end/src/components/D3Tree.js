@@ -18,7 +18,7 @@ class D3Tree extends React.Component {
 
   componentDidMount = () => {
     let root = this.props.treeData;
-    root["name"] = root.domainName;
+    root["name"] = root.domain;
     root["nodeSvgShape"] = {
       shape: "rect",
       shapeProps: {
@@ -26,7 +26,7 @@ class D3Tree extends React.Component {
         height: 60,
         x: 2,
         y: -40,
-        fill: this.getColor(root.domainName)
+        fill: this.getColor(root.domain)
       }
     };
     root.children.forEach(element => {
@@ -42,7 +42,7 @@ class D3Tree extends React.Component {
   componentDidUpdate = prevProps => {
     if (prevProps !== this.props) {
       let root = this.props.treeData;
-      root["name"] = root.domainName;
+      root["name"] = root.domain;
       root["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -50,7 +50,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(root.domainName)
+          fill: this.getColor(root.domain)
         }
       };
       root.children.forEach(element => {
@@ -70,7 +70,7 @@ class D3Tree extends React.Component {
     if (element.hasOwnProperty("children") && 
         element.children != null) 
     {
-      element["name"] = element.domainName;
+      element["name"] = element.domain;
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -78,7 +78,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(element.domainName)
+          fill: this.getColor(element.domain)
         }
       };
 
@@ -91,7 +91,7 @@ class D3Tree extends React.Component {
              element.keywordFound == true) 
     {
       /* Assign different color to mark this node as last node */
-      element["name"] = element.domainName + ' - Keyword';
+      element["name"] = element.domain + ' - Keyword';
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -110,7 +110,7 @@ class D3Tree extends React.Component {
     }
     else 
     {
-      element["name"] = element.domainName;
+      element["name"] = element.domain;
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -118,7 +118,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(element.domainName)
+          fill: this.getColor(element.domain)
         }
       }
 
@@ -195,7 +195,7 @@ class D3Tree extends React.Component {
     return color;
   };
 
-  getColor = (domainName) => {
+  getColor = (domain) => {
 
     const redFamily = ['#D0312D', '#990F02', '#E3242B', '#60100B',
                   '#541E1B', '#610C04', '#B90E0A', '#900603',
@@ -203,9 +203,9 @@ class D3Tree extends React.Component {
                   '#420C09', '#710C04', '#5E1916', '#7A1712',
                   '#680C07', '#BC544B', '#D21404', '#9B1003']
     
-    if(colorMap.has(domainName)) {
+    if(colorMap.has(domain)) {
       // Used the color in the map
-      return colorMap.get(domainName)
+      return colorMap.get(domain)
     }
     else {
       // Get a random color
@@ -216,8 +216,8 @@ class D3Tree extends React.Component {
       }
 
       // Add Color in the Map
-      colorMap.set(domainName, color);
-      usedColor.push(domainName)
+      colorMap.set(domain, color);
+      usedColor.push(domain)
       return color;
     }
   }
