@@ -2,6 +2,7 @@ import sys
 import requests
 import validators
 import random
+import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -17,18 +18,17 @@ foundUrls = []
 
 def newNode(url):
     parts = urlparse(url)
-    soup = getSoup(url)
     node = {
         'url': url,
         'domain': parts.netloc,
         'children': [],
-        'title': soup.title.string if soup.title else 'No title'
+        'title': 'No title'
     }
     return node
 
 def getSoup(link):
     request_object = requests.get(link, headers)
-    soup = BeautifulSoup(request_object.content, "html.parser")
+    soup = BeautifulSoup(request_object.content, "lxml")
     return soup
 
 def get_status_code(link):
@@ -40,7 +40,7 @@ def get_status_code(link):
         error_code = requests.get(link).status_code
     except requests.exceptions.ConnectionError:
         error_code = 13
-    return error_code
+    return (error_code >=200 and error_code < 400)
 
 def removeQuery(url):
     return url[:url.find('?')]
@@ -52,7 +52,7 @@ def removeScheme(url):
 
 def getNewUrl(pageLinks):
     newUrl = ''
-    while (not validators.url(newUrl)) or (removeScheme(newUrl) in foundUrls) or (get_status_code(newUrl) == 404):
+    while (not validators.url(newUrl)) or (removeScheme(newUrl) in foundUrls) or not get_status_code(newUrl):
         if len(pageLinks) == 0:
             return 0 
         randNum = random.randrange(len(pageLinks))
@@ -64,7 +64,7 @@ def getNewUrl(pageLinks):
 
 # visits all urls on the given page and continues to depth (maximum of 3)
 # returns the starting node's ID
-def dfs(parentNode, depth, keyword):
+def dfs(parentNode, depth, keyword, keywordFound):
     print('***************** depth = ', depth)
     if depth < 0:
         return 'end'
@@ -76,9 +76,10 @@ def dfs(parentNode, depth, keyword):
     soup = getSoup(thisUrl)
     pageLinks = soup.findAll("a", href=True)
     childResponse = 0
+    if soup.title: parentNode['title'] = soup.title.string
 
     #keep calling dfs until we reach depth or if we hit a dead end, try again
-    while (not childResponse and depth):
+    while not childResponse and depth and not keywordFound:
         #find a new valid link in the list and if none exists, return 0
         newUrl = getNewUrl(pageLinks)
         if not newUrl:
@@ -87,16 +88,24 @@ def dfs(parentNode, depth, keyword):
         foundUrls.append(removeScheme(newUrl))
         childNode = newNode(newUrl)
         parentNode['children'].append(childNode)
-        childResponse = dfs(childNode, depth-1, keyword)
+        if keyword and (keyword in newUrl):
+            keywordFound = True
+            childNode['hasKeyword'] = True
+            break
+        childResponse = dfs(childNode, depth-1, keyword, keywordFound)
     return parentNode
 
 
 def main():
+  start_time = time.time()
   print(str(sys.argv))
   start = newNode(sys.argv[1])
-  print (dfs(start, int(sys.argv[2]), None))
+  temp = None
+  if len(sys.argv) == 4:
+    temp = sys.argv[3]
+  print (dfs(start, int(sys.argv[2]), temp, False))
+  print("--- %s seconds ---" % (time.time() - start_time))
   #return nodeList in JSON format
-
   
 if __name__== "__main__":
-  main()
+    main()
