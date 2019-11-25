@@ -71,10 +71,15 @@ function validateRequest(req) {
 
     }
 
+    if(!Number.isInteger(req.body.depth)) {
+        return { status: 400, error: "Invalid type. Depth should be of type Integer."};
+    }
+
     if( req.body.keyword  && req.body.keyword.length <= 2 ) {
         //check only one word and
         return { status: 400, error: "Keyword not valid. Keyword is optional, but if sent then it must be at least 3 characters long." }
     }
+
 }
 
 
@@ -104,7 +109,7 @@ router.post("/dfsData", (req, res) => {
         request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                res.status(result.statusCode).send(error);
+                res.status(result.statusCode).send( { Error: error });
             } else {
                 res.status(result.statusCode).send(body);
             }
@@ -127,7 +132,7 @@ router.post("/bfsData", (req, res) => {
         request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                res.status(result.statusCode).send(error);
+                res.status(result.statusCode).send( { Error: error });
             } else {
                 res.status(result.statusCode).send(body);
             }
