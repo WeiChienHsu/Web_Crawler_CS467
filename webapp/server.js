@@ -102,7 +102,7 @@ router.post("/dfsData", (req, res) => {
         res.status(response.status).json( { Error: response.error }).end();
     } else {
 
-        res.status(201).send(dfsData); // Hard-coded mock data
+        res.status(200).send(dfsData); // Hard-coded mock data
         /*
         let url = crawlerURL + CrawlType.DFS.endpoint;
 
