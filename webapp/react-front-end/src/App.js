@@ -143,21 +143,12 @@ class App extends Component {
           });
           let postfix = this.state.algo === "BFS" ? "bfsData" : "dfsData";
 
-          let body = {}
-
-          if(this.state.keyword == "") {
-            body = {
-              url: convertURL(this.state.url),
-              depth: this.state.depth
-            };
-          }
-          else {
-            body = {
-              url: convertURL(this.state.url),
-              depth: this.state.depth,
-              keyword: this.state.keyword
-            };
-          }
+          let body = 
+          {
+            url: convertURL(this.state.url),
+            depth: this.state.depth,
+            keyword: this.state.keyword
+          };
           
           axios
             .post(`https://visualizers-rest-api.appspot.com/${postfix}`, body)
@@ -172,6 +163,7 @@ class App extends Component {
                   "search_url": this.state.url,
                   "search_result": res.data
                 }
+
                 history.push({
                   algorithm: this.state.algo,
                   url: this.state.url,
@@ -179,6 +171,7 @@ class App extends Component {
                   keyword: this.state.keyword,
                   results: searchResult
                 });
+                
                 cookie.save("userHistory", history, { path: "/" });
 
                 this.setState(
