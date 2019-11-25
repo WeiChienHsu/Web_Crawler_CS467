@@ -11,13 +11,20 @@ import Instructions from "./components/Instructions";
 import Output from "./components/Output";
 import Tree from "./components/D3Tree";
 
+function convertURL(url) {
+  if (!/^https?:\/\//i.test(url)) {
+    url = 'http://' + url;
+  }
+  return url;
+}
+
 class App extends Component {
   state = {
     algo: "BFS",
     url: "",
     keyword: "",
     depth_options: [],
-    depth: "1",
+    depth: 1,
     loading: false,
     error: "",
     output: false,
@@ -56,7 +63,7 @@ class App extends Component {
         url: "",
         keyword: "",
         depth_options: [],
-        depth: "1",
+        depth: 1,
         loading: false,
         error: "",
         output: false,
@@ -140,18 +147,18 @@ class App extends Component {
 
           if(this.state.keyword == "") {
             body = {
-              url: this.state.url,
+              url: convertURL(this.state.url),
               depth: this.state.depth
             };
           }
           else {
             body = {
-              url: this.state.url,
+              url: convertURL(this.state.url),
               depth: this.state.depth,
               keyword: this.state.keyword
             };
           }
-
+          
           axios
             .post(`https://visualizers-rest-api.appspot.com/${postfix}`, body)
             .then(res => {
@@ -253,7 +260,7 @@ class App extends Component {
             <select
               className="form-control col-md-1 mr-2"
               value={this.state.depth}
-              onChange={e => this.setState({ depth: e.target.value })}
+              onChange={e => this.setState({ depth: parseInt(e.target.value) })}
             >
               {this.state.depth_options.map(option => (
                 <option key={option} value={option}>
