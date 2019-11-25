@@ -45,29 +45,29 @@ Response Body Example:
 ```sh
 {
     "url": "https://www.reddit.com/r/OSUOnlineCS/",
-    "domainName": "reddit",
+    "domain": "reddit",
     "title": "reddit: the front page of the internet",
     "children": [
         {
             "url": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
-            "domainName": "reddit",
+            "domain": "reddit",
             "title": "reddit.com: Join the worldwide conversation",
             "children": [
                 {
                     "url": "https://www.reddit.com/help/useragreement",
-                    "domainName": "reddit",
+                    "domain": "reddit",
                     "title": "User Agreement - September 24, 2018 - Reddit",
                     "children": null
                 },
                 {
                     "url": "https://www.reddit.com/help/privacypolicy/",
-                    "domainName": "reddit",
+                    "domain": "reddit",
                     "title": "Privacy Policy - May 25, 2018 - Reddit",
                     "children": null
                 },
                 {
                     "url": "https://www.reddit.com/help/contentpolicy/",
-                    "domainName": "reddit",
+                    "domain": "reddit",
                     "title": "Content Policy - Reddit",
                     "children": null
                 }
@@ -120,19 +120,19 @@ Response Body Example:
         {
             "index": 0,
             "url": "https://en.wikipedia.org/wiki/Main_Page",
-            "domainName": "wikipedia",
+            "domain": "wikipedia",
             "title": "Wikipedia, the free encyclopedia"
         },
         {
             "index": 1,
             "url": "https://hu.wikipedia.org/wiki/",
-            "domainName": "wikipedia",
+            "domain": "wikipedia",
             "title": "Wikipédia, a szabad enciklopédia"
         },
         {
             "index": 2,
             "url": "https://hu.wikiquote.org/wiki/",
-            "domainName": "wikiquote",
+            "domain": "wikiquote",
             "title": "Wikidézet"
         }
     ],

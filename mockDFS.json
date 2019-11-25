@@ -4,43 +4,43 @@
         {
 			"index": 0,
             "url": "https://www.reddit.com/r/OSUOnlineCS/",
-            "domainName": "reddit",
+            "domain": "reddit",
             "title": "reddit: the front page of the internet"
         },
         {
 			"index": 1,
             "url": "https://www.reddit.com/login/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
-            "domainName": "reddit",
+            "domain": "reddit",
             "title": "reddit.com: Log in"
         },
         {
 			"index": 2,			
             "url": "https://www.reddithelp.com/en/categories/using-reddit/your-reddit-account/how-set-two-factor-authentication",
-            "domainName": "reddithelp",
+            "domain": "reddithelp",
             "title": "How to set up two-factor authentication | Reddit Help"
         },
         {
 			"index": 3,			
             "url": "https://www.redditinc.com/",
-            "domainName": "redditinc",
+            "domain": "redditinc",
             "title": "Homepage - Reddit"
         },
         {
 			"index": 4,
             "url": "https://www.reddit.com/",
-            "domainName": "reddit",
+            "domain": "reddit",
             "title": "reddit: the front page of the internet"
         },
         {
 			"index": 5,
             "url": "http://redditgifts.com/",
-            "domainName": "redditgifts",
+            "domain": "redditgifts",
             "title": "reddit gift exchanges and more! - redditgifts"
 		},
         {
 			"index": 6,
             "url": "http://www.redditgifts.com/about/",
-            "domainName": "redditgifts",
+            "domain": "redditgifts",
             "title": "What is this all about? - redditgifts"
         }
     ],
