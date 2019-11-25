@@ -162,12 +162,7 @@ class App extends Component {
           axios
             .post(`https://visualizers-rest-api.appspot.com/${postfix}`, body)
             .then(res => {
-              if (res.status !== 201) {
-                this.setState({
-                  response_error: true,
-                  loading: false
-                });
-              } else if (res.status === 201) {
+             if (res.status === 201 || res.status === 200) {
                 let history = cookie.load("userHistory");
                 
                 const searchResult = 
