@@ -1,6 +1,7 @@
 import sys
 import requests
 import validators
+import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -16,18 +17,18 @@ nodeList = []
 
 def newNode(url):
     parts = urlparse(url)
-    soup = getSoup(url)
+    #soup = getSoup(url)
     node = {
         'url': url,
         'domain': parts.netloc,
         'children': [],
-        'title': soup.title.string if soup.title else 'No title'
+        'title':  'No title'
     }
     return node
 
 def getSoup(link):
     request_object = requests.get(link, headers)
-    soup = BeautifulSoup(request_object.content, "html.parser")
+    soup = BeautifulSoup(request_object.content, "lxml")
     return soup
 
 def get_status_code(link):
@@ -39,7 +40,7 @@ def get_status_code(link):
         error_code = requests.get(link).status_code
     except requests.exceptions.ConnectionError:
         error_code = 13
-    return error_code
+    return (error_code >=200 and error_code < 400)
 
 def removeQuery(url):
     return url[:url.find('?')]
@@ -71,6 +72,7 @@ def bfs(start, depth, keyword):
             # get links from this new page
             soup = getSoup(thisUrl)
             pageLinks = soup.findAll("a", href=True)
+            if soup.title: parentNode['title'] = soup.title.string
 
             # put top 20 new urls into a queue for traversing if not already found
             count = 0
@@ -78,7 +80,7 @@ def bfs(start, depth, keyword):
                 newUrl = link.get('href')
                 newUrl = removeQuery(newUrl)
                 noSchemeUrl = removeScheme(newUrl)
-                if validators.url(newUrl) and (noSchemeUrl not in foundUrls) and (get_status_code(newUrl) != 404):
+                if validators.url(newUrl) and (noSchemeUrl not in foundUrls) and get_status_code(newUrl):
                     print(newUrl)
                     count += 1
                     foundUrls.append(noSchemeUrl)
@@ -87,6 +89,10 @@ def bfs(start, depth, keyword):
                     if keyword and (keyword in newUrl):
                         keywordFound = True
                         childNode['hasKeyword'] = True
+                    # if depth == 1:
+                    #     childSoup = getSoup(childNode['url'])
+                    #     if childSoup.title: 
+                    #         childNode['title'] = childSoup.title.string
                     children.append(childNode)
                     parentNode['children'].append(childNode)
                 #break loop as too many links will kill algorithm
@@ -100,12 +106,14 @@ def bfs(start, depth, keyword):
 
 
 def main():
+  start_time = time.time()
   print(str(sys.argv))
   temp = None
   if len(sys.argv) == 4:
       temp = sys.argv[3]
   bfs(sys.argv[1], int(sys.argv[2]), temp)
   print(str(nodeList))
+  print("--- %s seconds ---" % (time.time() - start_time))
   #return nodelist in JSON format
 
   
