@@ -70,10 +70,10 @@ function validateRequest(req) {
         return { status: 400, error: "A depth is required to begin crawling. Please enter a depth."};
 
     }
-    /*
-    if( typeof req.body.depth !== 'number' ) {
+
+    if(!Number.isInteger(req.body.depth)) {
         return { status: 400, error: "Invalid type. Depth should be of type Integer."};
-    } */
+    }
 
     if( req.body.keyword  && req.body.keyword.length <= 2 ) {
         //check only one word and
@@ -117,8 +117,6 @@ router.post("/dfsData", (req, res) => {
         res.status(response.status).json( { Error: response.error }).end();
     } else {
 
-        //res.status(200).send(dfsData); // Hard-coded mock data
-
         let url = crawlerURL + CrawlType.DFS.endpoint;
         requestCrawler(url, req.body, res)
             .catch( (err) => {
@@ -142,13 +140,7 @@ router.post("/dfsData", (req, res) => {
  */
 router.post("/bfsData", (req, res) => {
 
-
-    //res.status(201).json({ Error: 'deoeoeoe' }).end();
-
-
     let response = validateRequest(req);
-    //res.status(201).json({ Error: 'deoeoeoe' + response }).end();
-
 
     if( response != null ) {
         res.status(response.status).json({ Error: response.error });
