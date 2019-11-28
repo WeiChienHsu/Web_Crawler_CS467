@@ -70,16 +70,31 @@ function validateRequest(req) {
         return { status: 400, error: "A depth is required to begin crawling. Please enter a depth."};
 
     }
-
-    if(!Number.isInteger(req.body.depth)) {
+    /*
+    if( typeof req.body.depth !== 'number' ) {
         return { status: 400, error: "Invalid type. Depth should be of type Integer."};
-    }
+    } */
 
     if( req.body.keyword  && req.body.keyword.length <= 2 ) {
         //check only one word and
         return { status: 400, error: "Keyword not valid. Keyword is optional, but if sent then it must be at least 3 characters long." }
     }
 
+}
+
+async function requestCrawler (url, body, res) {
+
+    await request.post(url, { json: body }, (error, result, body) => {
+
+        if (error) {
+            return res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + error });
+        } else if (result.statusCode >= 400){
+             // error status but crawler missed to send error message as an error message
+            return res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + body });
+        } else {
+            return res.status(result.statusCode).send(body);
+        }
+    });
 }
 
 
@@ -102,14 +117,19 @@ router.post("/dfsData", (req, res) => {
         res.status(response.status).json( { Error: response.error }).end();
     } else {
 
-        res.status(200).send(dfsData); // Hard-coded mock data
-        /*
-        let url = crawlerURL + CrawlType.DFS.endpoint;
+        //res.status(200).send(dfsData); // Hard-coded mock data
 
+        let url = crawlerURL + CrawlType.DFS.endpoint;
+        requestCrawler(url, req.body, res)
+            .catch( (err) => {
+                res.status(500).json({ Error: "Unable to connect to Crawler - " + err});
+            });
+
+        /*
         request.post(url, { json: req.body }, (error, result, body) => {
 
             if (error) {
-                res.status(result.statusCode).send( { Error: error });
+                res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + error });
             } else {
                 res.status(result.statusCode).send(body);
             }
@@ -122,21 +142,29 @@ router.post("/dfsData", (req, res) => {
  */
 router.post("/bfsData", (req, res) => {
 
+
+    //res.status(201).json({ Error: 'deoeoeoe' }).end();
+
+
     let response = validateRequest(req);
+    //res.status(201).json({ Error: 'deoeoeoe' + response }).end();
+
+
     if( response != null ) {
-        res.status(response.status).json({ Error: response.error }).end();
+        res.status(response.status).json({ Error: response.error });
     } else {
+
+        res.status(200).json(dfsData); // Hard-coded mock data
+
 
         let url = crawlerURL + CrawlType.BFS.endpoint;
 
-        request.post(url, { json: req.body }, (error, result, body) => {
+        /*
+        requestCrawler(url, req.body, res)
+            .catch( (err) => {
+                res.status(500).json({ Error: "Unable to connect to Crawler - " + err});
+            }); */
 
-            if (error) {
-                res.status(result.statusCode).send( { Error: error });
-            } else {
-                res.status(result.statusCode).send(body);
-            }
-        });
     }
 });
 
