@@ -4,16 +4,12 @@ import validators
 import random
 import time
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 from itertools import cycle
-from fake_useragent import UserAgent
+import shadow_useragent
 
-
-headers = requests.utils.default_headers()
-headers.update({'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'})
-
-
+user_agent = shadow_useragent.ShadowUserAgent()
 foundUrls = []
 proxies = []
 
@@ -28,13 +24,14 @@ def parse_proxies(soup):
                 'ip': row.find_all('td')[0].string,
                 'port': row.find_all('td')[1].string
             })
+        if len(proxies) == 8:
+            break
     return proxies
 
 
 def get_proxies():
-    ua = UserAgent()
-    proxies_req = Request('https://www.sslproxies.org//')
-    proxies_req.add_header('User-Agent', ua.random)
+    proxies_req = Request('https://www.us-proxy.org/')
+    proxies_req.add_header('User-Agent', user_agent.random)
     proxies_doc = urlopen(proxies_req).read().decode('utf8')
     return parse_proxies(BeautifulSoup(proxies_doc, 'html.parser'))
 
@@ -55,18 +52,26 @@ def newNode(url):
 
 
 def getSoup(link):
+    use_proxy = False
+    headers = {'User-Agent': user_agent.random}
+    print(user_agent.random)
     for p in proxies:
         index = random_proxy()
         item = proxies[index]
         proxy = item['ip'] + ':' + item['port']
         try:
-            request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
+            # request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
+            if use_proxy:
+                request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
+                print("Request with ip:" + proxy)
+            else:
+                request_object = requests.get(link, headers)
             soup = BeautifulSoup(request_object.content, "lxml")
-            print("Request with ip:" + proxy)
             break
         except:
             # Most free proxies will often get connection errors.
             del proxies[index]
+            use_proxy = not use_proxy
             print("Skipping proxy. Connection error")
     return soup
 
@@ -82,7 +87,9 @@ def get_status_code(link):
     return (error_code >=200 and error_code < 400)
 
 def removeQuery(url):
-    return url[:url.find('?')]
+    split = urlsplit(url)
+    components = (split.scheme, split.netloc, split.path, '', '')
+    return urlunsplit(components)
 
 def removeScheme(url):
     parsed = urlparse(url)
@@ -98,7 +105,9 @@ def getNewUrl(pageLinks):
         link = pageLinks[randNum]
         pageLinks.pop(randNum)
         newUrl = link.get('href')
-        newUrl = removeQuery(newUrl)  
+        print("before: " + newUrl)
+        newUrl = removeQuery(newUrl)
+        print("After: " + newUrl)
     return newUrl
 
 # visits all urls on the given page and continues to depth (maximum of 3)
@@ -112,8 +121,9 @@ def dfs(parentNode, depth, keyword, keywordFound):
     thisUrl = parentNode['url']
 
     #prepare proxies
-    if len(proxies) < 15:
-        proxies.extends(get_proxies())
+    print(len(proxies))
+    if len(proxies) < 8:
+        proxies.extend(get_proxies())
 
     # get links from this new page
     soup = getSoup(thisUrl)
