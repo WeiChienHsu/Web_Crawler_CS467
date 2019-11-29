@@ -5,16 +5,43 @@ import random
 import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
+from itertools import cycle
+from fake_useragent import UserAgent
+
 
 headers = requests.utils.default_headers()
-headers.update({ 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'})
+headers.update({'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'})
 
-proxies = {
-  'http': 'http://10.10.1.10:3128',
-  'https': 'http://10.10.1.10:1080',
-}
 
 foundUrls = []
+proxies = []
+
+
+def parse_proxies(soup):
+    proxies = []
+    proxies_table = soup.find(id='proxylisttable')
+    # Save proxies in the array
+    for row in proxies_table.tbody.find_all('tr'):
+        if row.find_all('td')[6].string == 'yes':
+            proxies.append({
+                'ip': row.find_all('td')[0].string,
+                'port': row.find_all('td')[1].string
+            })
+    return proxies
+
+
+def get_proxies():
+    ua = UserAgent()
+    proxies_req = Request('https://www.sslproxies.org//')
+    proxies_req.add_header('User-Agent', ua.random)
+    proxies_doc = urlopen(proxies_req).read().decode('utf8')
+    return parse_proxies(BeautifulSoup(proxies_doc, 'html.parser'))
+
+# get a random index proxy
+def random_proxy():
+  return random.randint(0, len(proxies) - 1)
+
 
 def newNode(url):
     parts = urlparse(url)
@@ -26,9 +53,21 @@ def newNode(url):
     }
     return node
 
+
 def getSoup(link):
-    request_object = requests.get(link, headers)
-    soup = BeautifulSoup(request_object.content, "lxml")
+    for p in proxies:
+        index = random_proxy()
+        item = proxies[index]
+        proxy = item['ip'] + ':' + item['port']
+        try:
+            request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
+            soup = BeautifulSoup(request_object.content, "lxml")
+            print("Request with ip:" + proxy)
+            break
+        except:
+            # Most free proxies will often get connection errors.
+            del proxies[index]
+            print("Skipping proxy. Connection error")
     return soup
 
 def get_status_code(link):
@@ -71,7 +110,11 @@ def dfs(parentNode, depth, keyword, keywordFound):
 
     #take the next node at this height
     thisUrl = parentNode['url']
-    
+
+    #prepare proxies
+    if len(proxies) < 15:
+        proxies.extends(get_proxies())
+
     # get links from this new page
     soup = getSoup(thisUrl)
     pageLinks = soup.findAll("a", href=True)
@@ -99,6 +142,7 @@ def dfs(parentNode, depth, keyword, keywordFound):
 def main():
   start_time = time.time()
   print(str(sys.argv))
+  proxies.extend(get_proxies())
   start = newNode(sys.argv[1])
   temp = None
   if len(sys.argv) == 4:

@@ -120,7 +120,7 @@ router.post("/dfsData", (req, res) => {
         let url = crawlerURL + CrawlType.DFS.endpoint;
         requestCrawler(url, req.body, res)
             .catch( (err) => {
-                res.status(500).json({ Error: "Unable to connect to Crawler - " + err});
+                res.status(500).json({ Error: "Request rejected by crawler - " + err});
             });
 
         /*

@@ -9,6 +9,7 @@ chardet==3.0.4
 Click==7.0
 configparser==4.0.2
 enum34==1.1.6
+fake-useragent==0.1.11
 Flask==1.1.1
 futures==3.3.0
 idna==2.8

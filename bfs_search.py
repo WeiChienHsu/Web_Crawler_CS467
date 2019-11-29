@@ -5,6 +5,7 @@ import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+
 headers = requests.utils.default_headers()
 headers.update({ 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'})
 
@@ -28,7 +29,7 @@ def newNode(url):
 
 def getSoup(link):
     request_object = requests.get(link, headers)
-    soup = BeautifulSoup(request_object.content, "lxml")
+    soup = BeautifulSoup(request_object.content, "html.parser")
     return soup
 
 def get_status_code(link):
