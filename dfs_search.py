@@ -59,7 +59,6 @@ def getSoup(link):
         item = proxies[index]
         proxy = item['ip'] + ':' + item['port']
         try:
-            # request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
             if use_proxy:
                 request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
                 # print("Request with ip:" + proxy)
