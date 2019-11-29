@@ -6,7 +6,6 @@ import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
-from itertools import cycle
 import shadow_useragent
 
 user_agent = shadow_useragent.ShadowUserAgent()
@@ -54,7 +53,7 @@ def newNode(url):
 def getSoup(link):
     use_proxy = False
     headers = {'User-Agent': user_agent.random}
-    print(user_agent.random)
+    # print(user_agent.random)
     for p in proxies:
         index = random_proxy()
         item = proxies[index]
@@ -63,7 +62,7 @@ def getSoup(link):
             # request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
             if use_proxy:
                 request_object = requests.get(link, headers, proxies={"http": proxy, "https": proxy})
-                print("Request with ip:" + proxy)
+                # print("Request with ip:" + proxy)
             else:
                 request_object = requests.get(link, headers)
             soup = BeautifulSoup(request_object.content, "lxml")
@@ -74,6 +73,7 @@ def getSoup(link):
             use_proxy = not use_proxy
             print("Skipping proxy. Connection error")
     return soup
+
 
 def get_status_code(link):
     """
@@ -105,9 +105,7 @@ def getNewUrl(pageLinks):
         link = pageLinks[randNum]
         pageLinks.pop(randNum)
         newUrl = link.get('href')
-        print("before: " + newUrl)
         newUrl = removeQuery(newUrl)
-        print("After: " + newUrl)
     return newUrl
 
 # visits all urls on the given page and continues to depth (maximum of 3)
@@ -120,8 +118,7 @@ def dfs(parentNode, depth, keyword, keywordFound):
     #take the next node at this height
     thisUrl = parentNode['url']
 
-    #prepare proxies
-    print(len(proxies))
+    #refresh proxies if needed
     if len(proxies) < 8:
         proxies.extend(get_proxies())
 
