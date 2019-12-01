@@ -3,15 +3,10 @@ import requests
 import validators
 import time
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit
+import shadow_useragent
 
-headers = requests.utils.default_headers()
-headers.update({ 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'})
-
-proxies = {
-  'http': 'http://10.10.1.10:3128',
-  'https': 'http://10.10.1.10:1080',
-}
+ua = shadow_useragent.ShadowUserAgent()
 
 nodeList = []
 
@@ -27,6 +22,7 @@ def newNode(url):
     return node
 
 def getSoup(link):
+    headers = {'User-Agent': ua.random}
     request_object = requests.get(link, headers)
     soup = BeautifulSoup(request_object.content, "lxml")
     return soup
@@ -43,7 +39,9 @@ def get_status_code(link):
     return (error_code >=200 and error_code < 400)
 
 def removeQuery(url):
-    return url[:url.find('?')]
+    split = urlsplit(url)
+    components = (split.scheme, split.netloc, split.path, '', '')
+    return urlunsplit(components)
 
 def removeScheme(url):
     parsed = urlparse(url)
@@ -68,7 +66,7 @@ def bfs(start, depth, keyword):
             #take the next node at this height
             parentNode = queue.pop(0)
             thisUrl = parentNode['url']
-            
+
             # get links from this new page
             soup = getSoup(thisUrl)
             pageLinks = soup.findAll("a", href=True)
