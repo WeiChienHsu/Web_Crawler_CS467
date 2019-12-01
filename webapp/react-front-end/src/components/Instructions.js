@@ -19,6 +19,13 @@ class Instructions extends Component {
           follows it. This makes a chain from the starting page. This continues
           until the program hits the page limit indicated.
         </p>
+        <h4>Search</h4>
+        <p>
+        The program will send the request to the backendl; by doing so, the user 
+        is able to start the web crawler hosting on the Google Cloud Function and 
+        receive the crawling results in a couple of minutes. Please enjoy the 
+        photos of puppies while you're waiting for the results =)  
+        </p>
         <h4>Offline Search</h4>
         <p>
         The program will not send the request directly to the backend; instead, 
@@ -26,6 +33,13 @@ class Instructions extends Component {
         is a reaching result for the combination of the URL and Keyword users have 
         been seeking before. The result will always be the latest one, no matter 
         what depth the user has chosen, but the algorithm would matter.
+        </p>
+        <h4>Demo</h4>
+        <p>
+        The program will not send the request directly to the backend; instead,
+        it will read the mock data for both DFS and BFS searching results that 
+        we prepared for the testing purpose. The chart will be the same as how 
+        it will look like when consuming the data return from the backend.
         </p>
       </>
     );

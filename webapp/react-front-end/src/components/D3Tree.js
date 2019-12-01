@@ -29,7 +29,13 @@ class D3Tree extends React.Component {
 
   componentDidMount = () => {
     let root = this.props.treeData;
-    root["name"] = this.getDomainName(root.domain);
+    let domainName = this.getDomainName(root.domain);
+
+    if(domainName.charAt(domainName.length - 1) != 'm') {
+      domainName += 'm'
+    }
+
+    root["name"] = domainName
     root["nodeSvgShape"] = {
       shape: "rect",
       shapeProps: {
@@ -37,7 +43,7 @@ class D3Tree extends React.Component {
         height: 60,
         x: 2,
         y: -40,
-        fill: this.getColor(this.getDomainName(root.domain))
+        fill: this.getColor(domainName)
       }
     };
     root.children.forEach(element => {

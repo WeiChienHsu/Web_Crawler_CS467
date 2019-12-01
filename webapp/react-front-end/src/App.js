@@ -10,6 +10,9 @@ import Navbar from "./components/Navbar";
 import Instructions from "./components/Instructions";
 import Output from "./components/Output";
 import Tree from "./components/D3Tree";
+import mockDfsData from "./mockData/mockDFS.json"
+import mockBfsData from "./mockData/mockBFS.json"
+
 
 function convertURL(url) {
   if (!/^https?:\/\//i.test(url)) {
@@ -33,7 +36,8 @@ class App extends Component {
     disabled: false,
     graph_data: {},
     history: [],
-    server_error: ""
+    server_error: "",
+    graph: false
   };
 
   componentDidMount = () => {
@@ -70,7 +74,8 @@ class App extends Component {
         response_error: false,
         disabled: false,
         dataloaded: false,
-        server_error:""
+        server_error:"",
+        graph: false
       },
       () => this.updateDepthOptions()
     );
@@ -81,6 +86,8 @@ class App extends Component {
     var regex = new RegExp(expression);
     this.setState(
       {
+        output: false,
+        graph: false,
         error: this.state.url.match(regex) ? "" : "Please enter a valid URL"
       },
       () => {
@@ -108,7 +115,8 @@ class App extends Component {
                   loading: false,
                   dataloaded: true,
                   disabled: true,
-                  response_error: false
+                  response_error: false,
+                  graph: true
                 },
                 () => console.log(this.state.graph_data)
               );
@@ -133,7 +141,9 @@ class App extends Component {
     var regex = new RegExp(expression);
     this.setState(
       {
-        error: this.state.url.match(regex) ? "" : "Please enter a valid URL"
+        output: false,
+        error: this.state.url.match(regex) ? "" : "Please enter a valid URL",
+        graph: false
       },
       () => {
         if (this.state.error.length === 0) {
@@ -181,7 +191,8 @@ class App extends Component {
                     dataloaded: true,
                     history: cookie.load("userHistory"),
                     disabled: true,
-                    response_error: false
+                    response_error: false,
+                    graph: true
                   },
                   () => console.log(this.state.graph_data)
                 );
@@ -210,6 +221,52 @@ class App extends Component {
       }
     );
   };
+
+  demo = () => {
+    if (this.state.error.length === 0) {
+
+      this.setState({
+        loading: true,
+        output: true
+      });
+
+      let history = cookie.load("userHistory");
+      const mockData = this.state.algo === "BFS" ? mockBfsData  : mockDfsData;
+
+      const searchResult = 
+      {
+        "search_algo": this.state.algo,
+        "search_keyword": this.state.keyword,
+        "search_url": this.state.url,
+        "search_result": mockData
+      }
+
+      history.push({
+        algorithm: this.state.algo,
+        url: "Demo:" + this.state.url,
+        depth: this.state.depth,
+        keyword: this.state.keyword,
+        results: searchResult
+      });
+            
+      cookie.save("userHistory", history, { path: "/" });
+
+      setTimeout(function(){
+        this.setState(
+          {
+            graph_data: mockData,
+            loading: false,
+            dataloaded: true,
+            history: cookie.load("userHistory"),
+            disabled: true,
+            response_error: false,
+            graph: true
+          },
+          () => console.log(this.state.graph_data)
+        );
+      }.bind(this), 5000);
+    }
+  }
 
   onClearHistory = () => {
     cookie.save("userHistory", [], { path: "/" });
@@ -240,7 +297,7 @@ class App extends Component {
             </select>
             <input
               type="text"
-              className="form-control col-md-4 mr-2"
+              className="form-control col-md-3 mr-2"
               placeholder="www.google.com"
               value={this.state.url}
               onChange={e => this.setState({ url: e.target.value, error: "" })}
@@ -273,10 +330,16 @@ class App extends Component {
               Search
             </button>
             <button
-              className="btn btn-info"
+              className="btn btn-info mr-1 "
               onClick={this.offlineSearch}
             >
               Offline Search
+            </button>
+            <button
+              className="btn btn-primary mr-1"
+              onClick={this.demo}
+            >
+              Demo
             </button>
           </div>
           {this.state.error.length > 0 && (
@@ -291,7 +354,7 @@ class App extends Component {
           )}
         </div>
         <div className="row">
-          {this.state.dataloaded && (
+          {this.state.dataloaded && this.state.graph && (
             <Tree algo={this.state.algo} treeData={this.state.graph_data} />
           )}
         </div>
