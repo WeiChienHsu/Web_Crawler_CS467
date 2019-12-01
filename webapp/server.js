@@ -146,16 +146,16 @@ router.post("/bfsData", (req, res) => {
         res.status(response.status).json({ Error: response.error });
     } else {
 
-        res.status(200).json(dfsData); // Hard-coded mock data
+        //res.status(200).json(dfsData); // Hard-coded mock data
 
 
         let url = crawlerURL + CrawlType.BFS.endpoint;
 
-        /*
+
         requestCrawler(url, req.body, res)
             .catch( (err) => {
                 res.status(500).json({ Error: "Unable to connect to Crawler - " + err});
-            }); */
+            });
 
     }
 });
