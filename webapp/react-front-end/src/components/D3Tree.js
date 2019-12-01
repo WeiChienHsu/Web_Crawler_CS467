@@ -2,6 +2,9 @@ import React from "react";
 import Tree from "react-d3-tree";
 import Modal from "./Modal.js";
 
+const { getDomain } = require('tldjs');
+
+
 let usedColor = ['#FF0000'];
 let colorMap = new Map();
 
@@ -16,9 +19,17 @@ class D3Tree extends React.Component {
     zoom: 0.6
   };
 
+  getDomainName = (name) => {
+    let domainName = getDomain(name);
+    if (domainName != null) {
+      return domainName;
+    }
+    return name;
+  }
+
   componentDidMount = () => {
     let root = this.props.treeData;
-    root["name"] = root.domain;
+    root["name"] = this.getDomainName(root.domain);
     root["nodeSvgShape"] = {
       shape: "rect",
       shapeProps: {
@@ -26,7 +37,7 @@ class D3Tree extends React.Component {
         height: 60,
         x: 2,
         y: -40,
-        fill: this.getColor(root.domain)
+        fill: this.getColor(this.getDomainName(root.domain))
       }
     };
     root.children.forEach(element => {
@@ -42,7 +53,7 @@ class D3Tree extends React.Component {
   componentDidUpdate = prevProps => {
     if (prevProps !== this.props) {
       let root = this.props.treeData;
-      root["name"] = root.domain;
+      root["name"] = this.getDomainName(root.domain);
       root["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -50,7 +61,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(root.domain)
+          fill: this.getColor(this.getDomainName(root.domain))
         }
       };
       root.children.forEach(element => {
@@ -68,9 +79,10 @@ class D3Tree extends React.Component {
   treeModifications = element => {
     // 1. The node which has children is not possible to be the node with keyword
     if (element.hasOwnProperty("children") && 
-        element.children != null) 
+        element.children != null &&
+        element.children.length != 0) 
     {
-      element["name"] = element.domain;
+      element["name"] = this.getDomainName(element.domain);
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -78,7 +90,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(element.domain)
+          fill: this.getColor(this.getDomainName(element.domain))
         }
       };
 
@@ -87,11 +99,11 @@ class D3Tree extends React.Component {
       });
     } 
     // 2. Each leaf node might has keyword included in BFS
-    else if (element.hasOwnProperty("keywordFound") && 
-             element.keywordFound == true) 
+    else if (element.hasOwnProperty("hasKeyword") && 
+             element.hasKeyword == true) 
     {
       /* Assign different color to mark this node as last node */
-      element["name"] = element.domain + ' - Keyword';
+      element["name"] = this.getDomainName(element.domain) + ' - Keyword';
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -110,7 +122,7 @@ class D3Tree extends React.Component {
     }
     else 
     {
-      element["name"] = element.domain;
+      element["name"] = this.getDomainName(element.domain);
       element["nodeSvgShape"] = {
         shape: "rect",
         shapeProps: {
@@ -118,7 +130,7 @@ class D3Tree extends React.Component {
           height: 60,
           x: 2,
           y: -40,
-          fill: this.getColor(element.domain)
+          fill: this.getColor(this.getDomainName(element.domain))
         }
       }
 
@@ -220,6 +232,8 @@ class D3Tree extends React.Component {
       usedColor.push(domain)
       return color;
     }
+
+
   }
 
   render() {
@@ -234,7 +248,7 @@ class D3Tree extends React.Component {
         <div
           className="row mb-1 "
           id="treeWrapper"
-          style={{ width: "80em", height: "22em" }}
+          style={{ width: "80em", height: "34em" }}
         >
           <Tree
             data={this.state.treeData}
