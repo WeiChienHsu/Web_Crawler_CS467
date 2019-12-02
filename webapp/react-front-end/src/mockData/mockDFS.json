@@ -29,12 +29,6 @@
                                     "children":
                                     [
                                         {
-                                            "url": "http://redditgifts.com/",
-                                            "domain": "redditgifts",
-                                            "title": "reddit gift exchanges and more! - redditgifts",
-                                            "children": null
-                                        },
-                                        {
                                             "url": "http://redditregister.com/",
                                             "domain": "redditregister",
                                             "title": "Register for the membership - redditgifts",
@@ -47,11 +41,35 @@
                                             "children":
                                             [
                                                 {
-                                                    "url": "http://www.redditgifts.com/about/",
-                                                    "domain": "redditgifts",
-                                                    "title": "What is this all about? - redditgifts",
-                                                    "hasKeyword": true,
-                                                    "children": null
+                                                    "url": "https://www.reddithelp.com/en/categories/using-reddit/",
+                                                    "domain": "reddithelp",
+                                                    "title": "How to set up two-factor authentication | Reddit Help",
+                                                    "children":
+                                                    [
+                                                        {
+                                                            "url": "https://www.redditinc.com/",
+                                                            "domain": "redditinc",
+                                                            "title": "Homepage - Reddit",
+                                                                "children":
+                                                            [
+                                                                {
+                                                                    "url": "https://www.reddit.com/",
+                                                                    "domain": "reddit",
+                                                                    "title": "reddit: the front page of the internet",
+                                                                    "children":
+                                                                    [
+                                                                        {
+                                                                            "url": "http://www.redditgifts.com/about/",
+                                                                            "domain": "redditgifts",
+                                                                            "title": "What is this all about? - redditgifts",
+                                                                            "hasKeyword": true,
+                                                                            "children": null
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
