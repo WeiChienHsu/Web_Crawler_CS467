@@ -1,27 +1,26 @@
 import React, { Component } from "react";
 import { Slide } from 'react-slideshow-image';
 import { RingLoader } from "react-spinners";
-
  
 const slideImages = [
-  'https://storage.cloud.google.com/visualizer-images/slide_3.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_4.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_5.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_6.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_7.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_8.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_9.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_10.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_11.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_12.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_13.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_14.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_15.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_16.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_17.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_18.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_19.jpeg?supportedpurview=project',
-  'https://storage.cloud.google.com/visualizer-images/slide_20.jpeg?supportedpurview=project',
+  'https://storage.googleapis.com/visualizer-images/slide_3.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_4.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_5.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_6.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_7.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_8.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_9.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_10.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_11.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_12.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_13.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_14.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_15.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_16.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_17.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_18.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_19.jpeg',
+  'https://storage.googleapis.com/visualizer-images/slide_20.jpeg',
 ];
  
 const properties = {
@@ -31,7 +30,7 @@ const properties = {
   indicators: true,
   arrows: true,
   onChange: (oldIndex, newIndex) => {
-    console.log(`slide transition from ${oldIndex} to ${newIndex}`);
+    // console.log(`slide transition from ${oldIndex} to ${newIndex}`);
   }
 }
  

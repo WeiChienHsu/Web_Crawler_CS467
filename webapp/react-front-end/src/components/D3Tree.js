@@ -31,7 +31,7 @@ class D3Tree extends React.Component {
     let root = this.props.treeData;
     let domainName = this.getDomainName(root.domain);
 
-    if(domainName.charAt(domainName.length - 1) != 'm') {
+    if(domainName != undefined && domainName != null && domainName.charAt(domainName.length - 1) != 'm') {
       domainName += 'm'
     }
 
@@ -248,7 +248,7 @@ class D3Tree extends React.Component {
         <div className="green container">
           <p className="text-center m-2">
             Current Title: <strong>{this.state.title}</strong><br></br>
-            Cuurent URL: <strong>{this.state.url}</strong>
+            Current URL: <strong>{this.state.url}</strong>
           </p>
         </div>
         <div
