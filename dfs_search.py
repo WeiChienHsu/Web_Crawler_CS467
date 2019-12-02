@@ -20,7 +20,7 @@ def newNode(url):
     parts = urlparse(url)
     node = {
         'url': url,
-        'domain': parts.netloc,
+        'domainName': parts.netloc,
         'children': [],
         'title': 'No title'
     }
@@ -47,8 +47,8 @@ def removeQuery(url):
 
 def removeScheme(url):
     parsed = urlparse(url)
-    scheme = "%s://" % parsed.scheme
-    return parsed.geturl().replace(scheme, '', 1)
+    parsed._replace(scheme = '')
+    return parsed.geturl()
 
 def getNewUrl(pageLinks):
     newUrl = ''

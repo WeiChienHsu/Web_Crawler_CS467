@@ -16,11 +16,12 @@ proxies = {
 nodeList = []
 
 def newNode(url):
+    print("url is " + url)
     parts = urlparse(url)
     #soup = getSoup(url)
     node = {
         'url': url,
-        'domain': parts.netloc,
+        'domainName': parts.netloc,
         'children': [],
         'title':  'No title'
     }
@@ -47,8 +48,8 @@ def removeQuery(url):
 
 def removeScheme(url):
     parsed = urlparse(url)
-    scheme = "%s://" % parsed.scheme
-    return parsed.geturl().replace(scheme, '', 1)
+    parsed._replace(scheme = '')
+    return parsed.geturl()
 
 # visits all urls on the given page and continues to depth (maximum of 3)
 # returns the starting node's ID
@@ -68,6 +69,7 @@ def bfs(start, depth, keyword):
             #take the next node at this height
             parentNode = queue.pop(0)
             thisUrl = parentNode['url']
+            print(thisUrl)
             
             # get links from this new page
             soup = getSoup(thisUrl)
@@ -81,7 +83,7 @@ def bfs(start, depth, keyword):
                 newUrl = removeQuery(newUrl)
                 noSchemeUrl = removeScheme(newUrl)
                 if validators.url(newUrl) and (noSchemeUrl not in foundUrls) and get_status_code(newUrl):
-                    print(newUrl)
+                    #print(newUrl)
                     count += 1
                     foundUrls.append(noSchemeUrl)
                     #create a new node for this newUrl
