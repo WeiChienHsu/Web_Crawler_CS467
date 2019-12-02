@@ -205,12 +205,20 @@ class D3Tree extends React.Component {
   };
 
   getRandomColor = () => {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    // var letters = "0123456789ABCDEF";
+    // var color = "#";
+    // for (var i = 0; i < 6; i++) {
+    //   color += letters[Math.floor(Math.random() * 16)];
+    // }
+    // return color;
+
+    const colors = 
+    ['#B9951A', '#19DC58', '#6666ff', '#a366ff',
+    '#5cd65c', '#29a329', '#ff9933', '#ff66b3',
+    '#99b3e6', '#9933ff', '#66cc66', '#b3b300',
+    '#00e6e6', '#ffa31a', '#0080ff', '#009999' ]
+
+    return colors[Math.floor(Math.random() * 16)];
   };
 
   getColor = (domain) => {

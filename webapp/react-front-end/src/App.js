@@ -264,7 +264,7 @@ class App extends Component {
           },
           () => console.log(this.state.graph_data)
         );
-      }.bind(this), 5000);
+      }.bind(this), 3000);
     }
   }
 
