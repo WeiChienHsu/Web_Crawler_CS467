@@ -6,9 +6,10 @@ import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
-import shadow_useragent
+from fake_useragent import UserAgent
 
-user_agent = shadow_useragent.ShadowUserAgent()
+ua = UserAgent()
+
 foundUrls = []
 proxies = []
 
@@ -30,7 +31,7 @@ def parse_proxies(soup):
 
 def get_proxies():
     proxies_req = Request('https://www.us-proxy.org/')
-    proxies_req.add_header('User-Agent', user_agent.random)
+    proxies_req.add_header('User-Agent', ua.random)
     proxies_doc = urlopen(proxies_req).read().decode('utf8')
     return parse_proxies(BeautifulSoup(proxies_doc, 'html.parser'))
 
@@ -52,7 +53,7 @@ def newNode(url):
 
 def getSoup(link):
     use_proxy = False
-    headers = {'User-Agent': user_agent.random}
+    headers = {'User-Agent': ua.random}
     # print(user_agent.random)
     for p in proxies:
         index = random_proxy()
