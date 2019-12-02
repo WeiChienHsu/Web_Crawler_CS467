@@ -10,7 +10,6 @@ from fake_useragent import UserAgent
 
 ua = UserAgent()
 
-#ua = shadow_useragent.ShadowUserAgent()
 foundUrls = []
 proxies = []
 
