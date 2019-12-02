@@ -81,61 +81,6 @@ class App extends Component {
     );
   };
 
-  offlineSearch = () => {
-    var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-    var regex = new RegExp(expression);
-    this.setState(
-      {
-        output: false,
-        graph: false,
-        error: this.state.url.match(regex) ? "" : "Please enter a valid URL"
-      },
-      () => {
-        if (this.state.error.length === 0) {
-          this.setState({
-            loading: true,
-            output: true
-          });
-
-          /* Serach if the URL in the history */
-          let history = cookie.load("userHistory");
-
-          const offline_search_url = this.state.url;
-          const offline_search_keyword = this.state.keyword;
-          const offline_search_algo = this.state.algo;
-
-          for (var i = 0; i < history.length; i++) {
-            if (offline_search_url == history[i].results.search_url && 
-                offline_search_keyword == history[i].results.search_keyword &&
-                offline_search_algo == history[i].results.search_algo) 
-            {
-              this.setState(
-                {
-                  graph_data: history[i].results.search_result,
-                  loading: false,
-                  dataloaded: true,
-                  disabled: true,
-                  response_error: false,
-                  graph: true
-                },
-                () => console.log(this.state.graph_data)
-              );
-              return;
-            }
-          }
-
-          const server_error_message = "There is no recored for URL: " + offline_search_url +  " and Keyword: " + this.state.keyword  + " in the cookie.";
-          this.setState({
-            response_error: true,
-            loading: false,
-            server_error: server_error_message
-          })
-          return;
-      }
-    }
-    );
-};
-
   search = () => {
     var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
@@ -165,24 +110,17 @@ class App extends Component {
             .then(res => {
              if (res.status === 201 || res.status === 200) {
                 let history = cookie.load("userHistory");
-                
-                const searchResult = 
-                {
-                  "search_algo": this.state.algo,
-                  "search_keyword": this.state.keyword,
-                  "search_url": this.state.url,
-                  "search_result": res.data
-                }
 
                 history.push({
                   algorithm: this.state.algo,
                   url: this.state.url,
                   depth: this.state.depth,
-                  keyword: this.state.keyword,
-                  results: searchResult
+                  keyword: this.state.keyword
                 });
                 
                 cookie.save("userHistory", history, { path: "/" });
+
+                console.log(history);
 
                 this.setState(
                   {
@@ -233,20 +171,11 @@ class App extends Component {
       let history = cookie.load("userHistory");
       const mockData = this.state.algo === "BFS" ? mockBfsData  : mockDfsData;
 
-      const searchResult = 
-      {
-        "search_algo": this.state.algo,
-        "search_keyword": this.state.keyword,
-        "search_url": this.state.url,
-        "search_result": mockData
-      }
-
       history.push({
         algorithm: this.state.algo,
         url: "Demo:" + this.state.url,
         depth: this.state.depth,
-        keyword: this.state.keyword,
-        results: searchResult
+        keyword: this.state.keyword
       });
             
       cookie.save("userHistory", history, { path: "/" });
@@ -297,7 +226,7 @@ class App extends Component {
             </select>
             <input
               type="text"
-              className="form-control col-md-3 mr-2"
+              className="form-control col-md-4 mr-2"
               placeholder="www.google.com"
               value={this.state.url}
               onChange={e => this.setState({ url: e.target.value, error: "" })}
@@ -315,7 +244,7 @@ class App extends Component {
             </select>
             <input
               type="text"
-              className="form-control col-md-2 mr-2"
+              className="form-control col-md-3 mr-2"
               placeholder="keywords..."
               value={this.state.keyword}
               onChange={e => this.setState({ keyword: e.target.value })}
@@ -328,12 +257,6 @@ class App extends Component {
               onClick={this.search}
             >
               Search
-            </button>
-            <button
-              className="btn btn-info mr-1 "
-              onClick={this.offlineSearch}
-            >
-              Offline Search
             </button>
             <button
               className="btn btn-primary mr-1"

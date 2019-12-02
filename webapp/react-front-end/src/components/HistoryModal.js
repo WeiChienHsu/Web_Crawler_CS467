@@ -20,14 +20,18 @@ class HistoryModal extends Component {
               <table className="table table-bordered mb-0">
                 <thead className="thead-dark">
                   <tr>
+                    <th className="text-center">Algo</th>
                     <th className="text-center">Search URL</th>
+                    <th className="text-center">Depth</th>
                     <th className="text-center">Keyword</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.props.history.map((his, index) => (
                     <tr key={index}>
+                      <td className="text-center">{his.algorithm}</td>
                       <td className="text-center">{his.url}</td>
+                      <td className="text-center">{his.depth}</td>
                       <td className="text-center">
                         {his.keyword.length > 0 ? his.keyword : "-"}
                       </td>
