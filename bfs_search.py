@@ -4,9 +4,9 @@ import validators
 import time
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urlsplit, urlunsplit
-import shadow_useragent
+from fake_useragent import UserAgent
 
-ua = shadow_useragent.ShadowUserAgent()
+ua = UserAgent()
 
 nodeList = []
 
