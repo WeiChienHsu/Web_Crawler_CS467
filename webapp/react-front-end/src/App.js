@@ -51,7 +51,7 @@ class App extends Component {
 
   updateDepthOptions = () => {
     let options = [];
-    let highend = this.state.algo === "BFS" ? 4 : 21;
+    let highend = this.state.algo === "BFS" ? 4 : 31;
     for (let i = 1; i < highend; i++) {
       options.push(i);
     }
