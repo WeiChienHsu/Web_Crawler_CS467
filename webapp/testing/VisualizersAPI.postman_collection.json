@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "b7e64acd-e38e-42a0-8b3f-513b10660be6",
+		"name": "Visualizers API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new valid url dfs 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b19f535-130c-4fde-a744-0fa0c7780734",
+						"exec": [
+							"",
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"   ",
+							"    pm.expect(pm.response.json()[\"children\"]).to.exist;",
+							"    pm.expect(pm.response.json()[\"domain\"]).to.exist;",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"https://www.reddit.com\",\r\n  \"depth\": 1,\r\n  \"keyword\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/dfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"dfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new valid url dfs Bad Url",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b19f535-130c-4fde-a744-0fa0c7780734",
+						"exec": [
+							"",
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"dogle\",\r\n  \"level\": 1,\r\n  \"keyword\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/dfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"dfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid body missing url 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddc6a616-2d34-40ca-9250-18cad72e261e",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Please enter a URL so the crawler crawler can show you how cool it is.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"level\": 8,\r\n  \"keyword\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/bfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"bfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new valid url bfs 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adee9fd1-f577-483f-85b2-89403f6b9b27",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    let level2 = pm.response.json()[\"children\"];",
+							"    let level3 = level2[0].children",
+							"    ",
+							"    pm.expect(pm.response.json()[\"children\"]).to.exist;",
+							"    ",
+							"    pm.expect(pm.response.json()[\"domainName\"]).to.eq(\"reddit\");",
+							"    pm.expect(pm.response.json()[\"title\"]).to.eq(\"reddit: the front page of the internet\");",
+							"    ",
+							"    pm.expect(level2[0].children).to.exist;",
+							"    pm.expect(level3[0].children).to.eq(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"https://www.google.com\",\r\n  \"depth\": 2,\r\n  \"keyword\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/bfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"bfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid body missing url BFS 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f779520-60ea-4065-93b3-ddc683ae2b4a",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Please enter a URL so the crawler crawler can show you how cool it is.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"level\": 8,\r\n  \"keyword\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/bfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"bfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localDFSData missing depth 400",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"dogle.com\",\r\n  \"level\": 1,\r\n  \"keyword\": \"pa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/dfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"dfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localDFSData invalid keyword 400",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"dogle.com\",\r\n  \"depth\": 1,\r\n  \"keyword\": \"pa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/dfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"dfsData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new valid url dfs 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b19f535-130c-4fde-a744-0fa0c7780734",
+						"exec": [
+							"",
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"   ",
+							"    pm.expect(pm.response.json()[\"nodes\"]).to.exist;",
+							"    pm.expect(pm.response.json()[\"edges\"]).to.exist;",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"url\": \"https://www.amazon.com\",\r\n  \"depth\": 5,\r\n  \"keyword\": \"end\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/dfsData",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"dfsData"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
