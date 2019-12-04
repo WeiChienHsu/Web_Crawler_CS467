@@ -29,7 +29,13 @@ class D3Tree extends React.Component {
 
   componentDidMount = () => {
     let root = this.props.treeData;
-    root["name"] = this.getDomainName(root.domain);
+    let domainName = this.getDomainName(root.domain);
+
+    if(domainName != undefined && domainName != null && domainName.charAt(domainName.length - 1) != 'm') {
+      domainName += 'm'
+    }
+
+    root["name"] = domainName
     root["nodeSvgShape"] = {
       shape: "rect",
       shapeProps: {
@@ -37,7 +43,7 @@ class D3Tree extends React.Component {
         height: 60,
         x: 2,
         y: -40,
-        fill: this.getColor(this.getDomainName(root.domain))
+        fill: this.getColor(domainName)
       }
     };
     root.children.forEach(element => {
@@ -160,13 +166,13 @@ class D3Tree extends React.Component {
   orientationSetting = () => {
     if (this.props.algo == "BFS") {
       this.setState({
-        orientation: "horizontal",
-        translate: { x: 239.05, y: 297.2 }
+        orientation: "vertical",
+        translate: { x: 600.05, y: 73.2 }
       });
     } else if (this.props.algo == "DFS") {
       this.setState({
-        orientation: "vertical",
-        translate: { x: 363, y: 73.2 }
+        orientation: "horizontal",
+        translate: { x: 303, y: 190.2 }
       });
     }
   };
@@ -175,13 +181,13 @@ class D3Tree extends React.Component {
     if (this.state.orientation == "horizontal") {
       this.setState({
         orientation: "vertical",
-        translate: { x: 363, y: 73.2 }
+        translate: { x: 600.05, y: 73.2 }
       })
     }
     else {
       this.setState({
         orientation: "horizontal",
-        translate: { x: 239.05, y: 297.2 }
+        translate: { x: 303, y: 190.2 }
       });
     }
   }
@@ -199,12 +205,20 @@ class D3Tree extends React.Component {
   };
 
   getRandomColor = () => {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    // var letters = "0123456789ABCDEF";
+    // var color = "#";
+    // for (var i = 0; i < 6; i++) {
+    //   color += letters[Math.floor(Math.random() * 16)];
+    // }
+    // return color;
+
+    const colors = 
+    ['#B9951A', '#19DC58', '#6666ff', '#a366ff',
+    '#5cd65c', '#29a329', '#ff9933', '#ff66b3',
+    '#99b3e6', '#9933ff', '#66cc66', '#b3b300',
+    '#00e6e6', '#ffa31a', '#0080ff', '#009999' ]
+
+    return colors[Math.floor(Math.random() * 16)];
   };
 
   getColor = (domain) => {
@@ -242,7 +256,7 @@ class D3Tree extends React.Component {
         <div className="green container">
           <p className="text-center m-2">
             Current Title: <strong>{this.state.title}</strong><br></br>
-            Cuurent URL: <strong>{this.state.url}</strong>
+            Current URL: <strong>{this.state.url}</strong>
           </p>
         </div>
         <div

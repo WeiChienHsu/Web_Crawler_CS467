@@ -1,0 +1,57 @@
+{
+    "url": "https://www.reddit.com/r/OSUOnlineCS/",
+    "domain": "reddit",
+    "title": "reddit: the front page of the internet",
+    "children": 
+    [
+        {
+            "url": "https://www.google.com/register/",
+            "domain": "google",
+            "title": "reddit.com: Join the worldwide conversation",
+            "children": 
+            [
+              {
+                "url": "https://www.google.com/help/useragreement",
+                "domain": "google",
+                "title": "User Agreement - September 24, 2018 - Reddit",
+                "children" : null
+              },
+              {
+                "url": "https://www.reddit.com/help/privacypolicy/",
+                "domain": "reddit",
+                "title": "Privacy Policy - May 25, 2018 - Reddit",
+                "children" : null
+  
+              }
+            ]
+        },
+        {
+          "url": "https://www.osu.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2FOSUOnlineCS%2F",
+          "domain": "reddit",
+          "title": "reddit.com: Join the worldwide conversation",
+          "children": 
+          [
+            {
+              "url": "https://www.osu.com/help/useragreement",
+              "domain": "osu",
+              "title": "User Agreement",
+              "children" : null
+            },
+            {
+              "url": "https://www.osu.com/help/privacypolicy/",
+              "domain": "osu",
+              "title": "Privacy Policy",
+              "children" : null
+
+            },
+            {
+              "url": "https://www.osu.com/help/IAMKEYWORD/",
+              "domain": "osu",
+              "title": "Content Policy",
+              "children" : null,
+              "hasKeyword": true
+            }
+          ]
+      }
+    ]
+  }

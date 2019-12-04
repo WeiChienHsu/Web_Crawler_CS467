@@ -10,6 +10,9 @@ import Navbar from "./components/Navbar";
 import Instructions from "./components/Instructions";
 import Output from "./components/Output";
 import Tree from "./components/D3Tree";
+import mockDfsData from "./mockData/mockDFS.json"
+import mockBfsData from "./mockData/mockBFS.json"
+
 
 function convertURL(url) {
   if (!/^https?:\/\//i.test(url)) {
@@ -33,7 +36,8 @@ class App extends Component {
     disabled: false,
     graph_data: {},
     history: [],
-    server_error: ""
+    server_error: "",
+    graph: false
   };
 
   componentDidMount = () => {
@@ -47,7 +51,7 @@ class App extends Component {
 
   updateDepthOptions = () => {
     let options = [];
-    let highend = this.state.algo === "BFS" ? 4 : 21;
+    let highend = this.state.algo === "BFS" ? 4 : 31;
     for (let i = 1; i < highend; i++) {
       options.push(i);
     }
@@ -70,70 +74,21 @@ class App extends Component {
         response_error: false,
         disabled: false,
         dataloaded: false,
-        server_error:""
+        server_error:"",
+        graph: false
       },
       () => this.updateDepthOptions()
     );
   };
-
-  offlineSearch = () => {
-    var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-    var regex = new RegExp(expression);
-    this.setState(
-      {
-        error: this.state.url.match(regex) ? "" : "Please enter a valid URL"
-      },
-      () => {
-        if (this.state.error.length === 0) {
-          this.setState({
-            loading: true,
-            output: true
-          });
-
-          /* Serach if the URL in the history */
-          let history = cookie.load("userHistory");
-
-          const offline_search_url = this.state.url;
-          const offline_search_keyword = this.state.keyword;
-          const offline_search_algo = this.state.algo;
-
-          for (var i = 0; i < history.length; i++) {
-            if (offline_search_url == history[i].results.search_url && 
-                offline_search_keyword == history[i].results.search_keyword &&
-                offline_search_algo == history[i].results.search_algo) 
-            {
-              this.setState(
-                {
-                  graph_data: history[i].results.search_result,
-                  loading: false,
-                  dataloaded: true,
-                  disabled: true,
-                  response_error: false
-                },
-                () => console.log(this.state.graph_data)
-              );
-              return;
-            }
-          }
-
-          const server_error_message = "There is no recored for URL: " + offline_search_url +  " and Keyword: " + this.state.keyword  + " in the cookie.";
-          this.setState({
-            response_error: true,
-            loading: false,
-            server_error: server_error_message
-          })
-          return;
-      }
-    }
-    );
-};
 
   search = () => {
     var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
     this.setState(
       {
-        error: this.state.url.match(regex) ? "" : "Please enter a valid URL"
+        output: false,
+        error: this.state.url.match(regex) ? "" : "Please enter a valid URL",
+        graph: false
       },
       () => {
         if (this.state.error.length === 0) {
@@ -155,24 +110,17 @@ class App extends Component {
             .then(res => {
              if (res.status === 201 || res.status === 200) {
                 let history = cookie.load("userHistory");
-                
-                const searchResult = 
-                {
-                  "search_algo": this.state.algo,
-                  "search_keyword": this.state.keyword,
-                  "search_url": this.state.url,
-                  "search_result": res.data
-                }
 
                 history.push({
                   algorithm: this.state.algo,
                   url: this.state.url,
                   depth: this.state.depth,
-                  keyword: this.state.keyword,
-                  results: searchResult
+                  keyword: this.state.keyword
                 });
                 
                 cookie.save("userHistory", history, { path: "/" });
+
+                console.log(history);
 
                 this.setState(
                   {
@@ -181,7 +129,8 @@ class App extends Component {
                     dataloaded: true,
                     history: cookie.load("userHistory"),
                     disabled: true,
-                    response_error: false
+                    response_error: false,
+                    graph: true
                   },
                   () => console.log(this.state.graph_data)
                 );
@@ -210,6 +159,43 @@ class App extends Component {
       }
     );
   };
+
+  demo = () => {
+    if (this.state.error.length === 0) {
+
+      this.setState({
+        loading: true,
+        output: true
+      });
+
+      let history = cookie.load("userHistory");
+      const mockData = this.state.algo === "BFS" ? mockBfsData  : mockDfsData;
+
+      history.push({
+        algorithm: this.state.algo,
+        url: "Demo:" + this.state.url,
+        depth: this.state.depth,
+        keyword: this.state.keyword
+      });
+            
+      cookie.save("userHistory", history, { path: "/" });
+
+      setTimeout(function(){
+        this.setState(
+          {
+            graph_data: mockData,
+            loading: false,
+            dataloaded: true,
+            history: cookie.load("userHistory"),
+            disabled: true,
+            response_error: false,
+            graph: true
+          },
+          () => console.log(this.state.graph_data)
+        );
+      }.bind(this), 3000);
+    }
+  }
 
   onClearHistory = () => {
     cookie.save("userHistory", [], { path: "/" });
@@ -258,7 +244,7 @@ class App extends Component {
             </select>
             <input
               type="text"
-              className="form-control col-md-2 mr-2"
+              className="form-control col-md-3 mr-2"
               placeholder="keywords..."
               value={this.state.keyword}
               onChange={e => this.setState({ keyword: e.target.value })}
@@ -273,10 +259,10 @@ class App extends Component {
               Search
             </button>
             <button
-              className="btn btn-info"
-              onClick={this.offlineSearch}
+              className="btn btn-primary mr-1"
+              onClick={this.demo}
             >
-              Offline Search
+              Demo
             </button>
           </div>
           {this.state.error.length > 0 && (
@@ -291,7 +277,7 @@ class App extends Component {
           )}
         </div>
         <div className="row">
-          {this.state.dataloaded && (
+          {this.state.dataloaded && this.state.graph && (
             <Tree algo={this.state.algo} treeData={this.state.graph_data} />
           )}
         </div>

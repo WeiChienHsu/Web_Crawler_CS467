@@ -9,6 +9,7 @@ chardet==3.0.4
 Click==7.0
 configparser==4.0.2
 enum34==1.1.6
+fake-useragent==0.1.11
 Flask==1.1.1
 futures==3.3.0
 idna==2.8
@@ -66,7 +67,6 @@ python-dateutil==1.5
 pytz==2013.7
 requests==2.22.0
 scipy==0.13.0b1
-shadow_useragent==3.0.4
 singledispatch==3.4.0.3
 six==1.4.1
 soupsieve==1.9.5
