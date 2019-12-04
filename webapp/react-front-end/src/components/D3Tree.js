@@ -166,13 +166,13 @@ class D3Tree extends React.Component {
   orientationSetting = () => {
     if (this.props.algo == "BFS") {
       this.setState({
-        orientation: "horizontal",
-        translate: { x: 239.05, y: 297.2 }
+        orientation: "vertical",
+        translate: { x: 600.05, y: 73.2 }
       });
     } else if (this.props.algo == "DFS") {
       this.setState({
-        orientation: "vertical",
-        translate: { x: 363, y: 73.2 }
+        orientation: "horizontal",
+        translate: { x: 303, y: 190.2 }
       });
     }
   };
@@ -181,13 +181,13 @@ class D3Tree extends React.Component {
     if (this.state.orientation == "horizontal") {
       this.setState({
         orientation: "vertical",
-        translate: { x: 363, y: 73.2 }
+        translate: { x: 600.05, y: 73.2 }
       })
     }
     else {
       this.setState({
         orientation: "horizontal",
-        translate: { x: 239.05, y: 297.2 }
+        translate: { x: 303, y: 190.2 }
       });
     }
   }
