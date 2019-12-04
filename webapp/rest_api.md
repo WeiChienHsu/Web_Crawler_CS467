@@ -8,7 +8,7 @@ The Web Server handles requests from the Client. A Node.Js server services two e
 #### BFS
 Crawl as BFS
 ```sh
-POST  /BFS
+POST  /bfsData
 ```
 Allows you to request the crawler to begin server posting the data from the crawling results.
 ###### Request:
@@ -80,7 +80,7 @@ Response Body Example:
 #### DFS
 Crawl as DFS
 ```sh
-POST  /DFS
+POST  /dfsData
 ```
 Allows you to request the crawler to begin server posting the data from the crawling results.
 ###### Request:
