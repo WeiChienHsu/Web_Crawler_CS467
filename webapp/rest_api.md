@@ -21,14 +21,14 @@ Allows you to request the crawler to begin server posting the data from the craw
 | ------ | ------ | ------ | ------ | ------ |
 | URL | String | The URL to crawl | true | None |
 | Depth | Integer | The depth level for crawling | true | Max of 3 |
-| Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
+| Keyword | String | A word to include in the search. | false | Valid words |
 
 Request Body Example:
 ```sh
 {
   "url": "https://www.google.com",
   "depth": 8,
-  "keywords": ["mindfulness"]
+  "keyword": "mindfulness"
 }
 ```
 
@@ -92,14 +92,14 @@ Allows you to request the crawler to begin server posting the data from the craw
 | ------ | ------ | ------ | ------ | ------ |
 | URL | String | The URL to crawl | true | None
 | Depth | Integer | The depth level for crawling | true | None
-| Keywords | Array | A collection of keywords to include in the search. | false | Valid words |
+| Keyword | String | A keyword to base search on. | false | Valid words |
 
 Request Body Example:
 ```sh
 {
   "url": "https://www.amazon.com",
   "depth": 8,
-  "keywords": null
+  "keyword": null
 }
 ```
 
