@@ -4,6 +4,118 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 ---
 
+## Project Instruction
+
+Open the zip folder or clone the project from the GitHub Repository:
+
+```
+$git clone https://github.com/WeiChienHsu/Web_Crawler_CS467.git
+```
+
+Please make sure you have downloaded and installed `node`, `python3`, and `npm` in your local machine. 
+
+- You can install npm by installing Node.js. Node.js is an environment for developing server-side applications. 
+- When you install Node.js, npm will install automatically. (https://nodejs.org/en/)
+
+
+### Frontend UI
+
+> Under the directory: `./Web_Crawler_CS467/webapp/react-front-end`
+
+Run:
+
+```
+$npm install
+$npm start
+```
+
+to install the required modules and the server will be listening on the `port 3000`
+
+#### Test on local machine
+
+Open your web browser and visit: http://localhost:3000/.
+
+1. Enter a Starting URL 
+2. Select between BFS and DFS crawling method
+3. Select the depth of the searching level
+4. It is optional to enter a keyword
+5. Press "Search" or "Demo" Button
+6. Web Frontend sends the request to Web Server through a POST Request
+7. Web Frontend receives the crawling result from the Web Server and renders content to a chart using D3 libraries
+8. If there is Error Message return from the Web Server, it will display on the UI.
+
+#### Some good testing examples:
+|Algo | URL | depth | keyword |
+|:--:|:---:|:---:|:---:|
+|BFS | www.google.com | 1 | mail|
+|BFS | www.google.com | 1 | mail|
+|DFS | https://www.reddit.com/r/OSUOnlineCS/ | 22 | - |
+|DFS | https://yahoo.com | 16 | - |
+
+
+### Web Server
+
+> Under the directory: `./Web_Crawler_CS467/webapp`
+
+#### Run on local machine
+
+Run:
+
+```
+$npm install
+$npm start
+```
+
+to install the required modules and the server will be listening on the **port 8080**
+
+#### Test on local machine
+
+In the web app directory, you will also find a directory called ‘testing’ with two files to create the testing setup for the postman. 
+
+You can import both
+- visualizers_api.postman_collection.json
+- visualizers_api.postman_environment.json
+
+Currently, the `app_url variable` is set to the cloud deploy API if you would like the code running in your local machine you will have to change this value to `http://localhost:8080`
+
+
+### Web Crawler
+
+> Under the directory: `./Web_Crawler_CS467`
+
+To see the algorithms in action with live URLs being printed, run locally with these instructions.
+
+1. Install the codebase in our Github repository
+
+2. Make sure you have the appropriate python packages installed from our requirements.txt file (Python 3) using:
+
+```cmd
+pip3 install -r requirements.txt
+```
+
+3. Run the algorithm of your choice from the target file’s directory, in the following format:
+
+**BFS** - `python3 bfs_search.py [target url] [depth] [keyword (optional)]`
+
+```
+python3 bfs_search.py http://www.google.com 2
+python3 bfs_search.py http://www.google.com 2 stop
+```
+
+**DFS** - `python3 dfs_search.py [target url] [depth] [keyword (optional)]`
+
+```
+python3 dfs_search.py http://www.google.com 20
+python3 dfs_search.py http://www.google.com 20 stop
+```
+
+4. Watch as each URL is printed to the console and it is added to the list to be returned (in this case printed) as one large array object
+
+
+
+---
+
+
 ## Project Plan
 
 ### USER STORIES AND SPECIFICATION
@@ -78,7 +190,7 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 - [X] As a Web Server, it can return the content from Cloud Function to the Web Frontend: The server will relay the information in JSON back to the frontend as the response to the original API call.
 
-- [ ] As a Web Server, it should response Error Message with correct Status Code to the Frontend: The server will identify any empty response object and return an error to the front end instead of the normal response. The server will have a fail safe, where if it take the function too long to respond, it will return an error message to the front end (in case there is an issue with the function that can not be assessed).
+- [X] As a Web Server, it should response Error Message with correct Status Code to the Frontend: The server will identify any empty response object and return an error to the front end instead of the normal response. The server will have a fail safe, where if it take the function too long to respond, it will return an error message to the front end (in case there is an issue with the function that can not be assessed).
 
 - [X] As a Web Server, it should be hosted on the Google Cloud Platform: The server will be hosted on Google Cloud Platform which in turn will host the front end of our webpage. It should be accessed by the end point of Google App Engine. (e.g. https://XXXX.appspot.com/)
 
@@ -86,24 +198,24 @@ This is the workspace for CS 467 Capstone Software Projects.
 
 #### Web Crawler
 
-- [ ] As a Web Crawler, it should expose two APIs (DFS/BFS) from cloud function: The crawler will be hosted in the cloud 
+- [X] As a Web Crawler, it should expose two APIs (DFS/BFS) from cloud function: The crawler will be hosted in the cloud 
 
 
-- [ ] As a Web Crawler, it can receive the function parameters from Web Server: The crawler will have 2 separate functions for performing the search. One will implement the DFS algorithm and the other will implement the BFS algorithm.
+- [X] As a Web Crawler, it can receive the function parameters from Web Server: The crawler will have 2 separate functions for performing the search. One will implement the DFS algorithm and the other will implement the BFS algorithm.
 
-- [ ] As a Web Crawler, it can parse the parameters like URL, level of search, search method and keyword: The function parameters for starting URL, depth and keyword should be included from the server and The crawler will have a function to parse the parameters of URL, level of search,  and keyword out of the payload
+- [X] As a Web Crawler, it can parse the parameters like URL, level of search, search method and keyword: The function parameters for starting URL, depth and keyword should be included from the server and The crawler will have a function to parse the parameters of URL, level of search,  and keyword out of the payload
 
-- [ ] As a Web Crawler, it should scrape the URL and capture the first URL from the crawling results: The crawler will scrape the page of the given URL until it finds another URL to jump to
+- [X] As a Web Crawler, it should scrape the URL and capture the first URL from the crawling results: The crawler will scrape the page of the given URL until it finds another URL to jump to
 
-- [ ] As a Web Crawler, it can implement both DFS and BFS algorithm to collect URLs: The crawler should have 2 endpoints available, one for a DFS and one for BFS. If the keyword is found the search will stop and return a boolean indicating the keyword has been found instead of reaching the depth
+- [X] As a Web Crawler, it can implement both DFS and BFS algorithm to collect URLs: The crawler should have 2 endpoints available, one for a DFS and one for BFS. If the keyword is found the search will stop and return a boolean indicating the keyword has been found instead of reaching the depth
 
-- [ ] As a Web Crawler, to apply the DFS algorithm, the program will start at the start page, randomly choose one of the links on that page, then follow it to the next page. Then, on the next page, it randomly selects a link from the options available and follows it. This makes a chain from the starting page. This continues until the program hits the page limit indicated.
+- [X] As a Web Crawler, to apply the DFS algorithm, the program will start at the start page, randomly choose one of the links on that page, then follow it to the next page. Then, on the next page, it randomly selects a link from the options available and follows it. This makes a chain from the starting page. This continues until the program hits the page limit indicated.
 
-- [ ] As a Web Crawler, to apply the BFS algorithm, the program will follow ALL links from the start page, and ALL links from each page it visits, until the crawler has reached the limit of pages deep (as measured from the start page), it should visit. 
+- [X] As a Web Crawler, to apply the BFS algorithm, the program will follow ALL links from the start page, and ALL links from each page it visits, until the crawler has reached the limit of pages deep (as measured from the start page), it should visit. 
 
-- [ ] As a Web Crawler, it should limit the number of levels for the BFS method, since this is likely to return a huge, sprawling graph, consider limiting the user's input with this kind of search to a small number. 
+- [X] As a Web Crawler, it should limit the number of levels for the BFS method, since this is likely to return a huge, sprawling graph, consider limiting the user's input with this kind of search to a small number. 
 
-- [ ] As a Web Crawler, it should return a JSON data representing the Search Result to Web Server: The crawler will store its traversals (edges) in a data structure, as well as the URL followed, and the webpage title for each stop. There will be a function that converts the data structure information into a properly formatted JSON object. The crawler will return an empty object if an issue is encountered
+- [X] As a Web Crawler, it should return a JSON data representing the Search Result to Web Server: The crawler will store its traversals (edges) in a data structure, as well as the URL followed, and the webpage title for each stop. There will be a function that converts the data structure information into a properly formatted JSON object. The crawler will return an empty object if an issue is encountered
 
 
 ---
