@@ -3,7 +3,7 @@ const app           = express();
 const bodyParser    = require('body-parser');
 const request = require('request');
 
-const cors = require('cors'); // Fix the frontend no-CORS issues
+const cors = require('cors');
 
 const dfsData       = require('./mockData/mockDFS');
 const bfsData       = require('./mockData/mockBFS')
@@ -87,25 +87,18 @@ async function requestCrawler (url, body, res) {
     await request.post(url, { json: body }, (error, result, body) => {
 
         if (error) {
-            return res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + error });
+            return res.status(result.statusCode).json( { Error: "Crawler is reporting an error - " + error });
         } else if (result.statusCode >= 400){
              // error status but crawler missed to send error message as an error message
-            return res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + body });
+            return res.status(result.statusCode).json( { Error: "Crawler is reporting an error - " + body });
+        } else if (!body){
+            // crawler missed body in response due to timeout
+            return res.status(result.statusCode).json( { Error: "Crawler's response empty. The cloud function could have encountered a timeout - " + body });
         } else {
-            return res.status(result.statusCode).send(body);
+            return res.status(result.statusCode).json(body);
         }
     });
 }
-
-
-/**
- * Get Index
- */
-router.get("/", (req, res) => {
-  res.send("Welcome to the Web Crawler REST API");
-});
-
-
 
 /**
  * endpoint for DFS
@@ -118,20 +111,12 @@ router.post("/dfsData", (req, res) => {
     } else {
 
         let url = crawlerURL + CrawlType.DFS.endpoint;
+
         requestCrawler(url, req.body, res)
             .catch( (err) => {
                 res.status(500).json({ Error: "Request rejected by crawler - " + err});
             });
 
-        /*
-        request.post(url, { json: req.body }, (error, result, body) => {
-
-            if (error) {
-                res.status(result.statusCode).send( { Error: "Crawler is reporting an error - " + error });
-            } else {
-                res.status(result.statusCode).send(body);
-            }
-        }); */
     }
 });
 
@@ -148,16 +133,21 @@ router.post("/bfsData", (req, res) => {
 
         //res.status(200).json(dfsData); // Hard-coded mock data
 
-
         let url = crawlerURL + CrawlType.BFS.endpoint;
 
 
         requestCrawler(url, req.body, res)
             .catch( (err) => {
-                res.status(500).json({ Error: "Unable to connect to Crawler - " + err});
+                res.status(500).json({ Error: "Request rejected by crawler - " + err});
             });
-
     }
+});
+
+/**
+ * Get Index
+ */
+router.get("/", (req, res) => {
+    res.send("Welcome to the Web Crawler REST API");
 });
 
 
